@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#edf2f0">
+<title>Personal OS</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400&display=swap">
+<style>
+:root{
+  --bg:#edf2f0;--frost:rgba(242,247,245,0.34);
+  --card:rgba(255,255,255,0.58);--cb:rgba(130,185,220,0.45);
+  --ci:inset 0 1px 0 rgba(255,255,255,0.88);
+  --cs:0 6px 32px rgba(60,130,190,0.13),0 1px 4px rgba(80,150,200,0.07);
+  --tp:#0f1e26;--ts:rgba(30,65,95,0.82);--tm:rgba(40,80,115,0.62);
+  --acc:rgba(20,85,150,0.92);--accbg:rgba(178,218,244,0.32);--accb:rgba(100,168,214,0.36);
+  --pill:rgba(255,255,255,0.46);--pb:rgba(140,190,220,0.20);
+  --pa:rgba(190,225,245,0.38);--pab:rgba(100,170,215,0.34);
+  --rule:rgba(130,185,220,0.22);--dest:rgba(180,80,70,0.75);
+  --apricot:rgba(220,155,80,0.90);--apricot-bg:rgba(240,200,140,0.22);
+  --moss:rgba(100,130,95,0.85);--moss-bg:rgba(160,200,150,0.18);
+  --fd:'DM Serif Display',Georgia,serif;--fu:'Inter',system-ui,sans-serif;
+  --rmd:14px;--rlg:18px;--rxl:20px;--rpill:999px;
+  --nav:72px;--ease:cubic-bezier(0.22,1,0.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
+html,body{height:100%;overscroll-behavior:none;}
+body{font-family:var(--fu);font-weight:300;font-size:14px;color:var(--tp);background:
+  radial-gradient(ellipse at 50% -12%,rgba(255,255,255,.72) 0%,rgba(255,255,255,0) 38%),
+  linear-gradient(180deg,#78a9b4 0%,#d9e7df 52%,#edf2f0 100%);
+}
+button{font-family:var(--fu);cursor:pointer;border:none;background:none;color:inherit;transition:background .18s var(--ease),border-color .18s var(--ease),color .18s var(--ease),transform .18s var(--ease),opacity .18s var(--ease);}
+button:active{transform:scale(.965);}
+input,textarea,select{font-family:var(--fu);}
+/* Background */
+.app{position:relative;background:var(--bg);min-height:100dvh;overflow-x:hidden;}
+.blob{position:absolute;border-radius:50%;filter:blur(62px);pointer-events:none;z-index:0;}
+.b1{width:420px;height:320px;top:-90px;left:-70px;opacity:.52;background:radial-gradient(ellipse at 45% 45%,#b8d8f0 0%,#c8e4f8 30%,#dde8f4 65%,transparent 100%);}
+.b2{width:280px;height:340px;top:50px;right:-60px;opacity:.38;background:radial-gradient(ellipse at 55% 38%,#cce0f8 0%,#e0d8f4 48%,transparent 72%);}
+.b3{width:360px;height:260px;top:300px;left:-40px;opacity:.32;background:radial-gradient(ellipse at 40% 55%,#c4ddf0 0%,#e4f4f0 70%,transparent 100%);}
+.b4{width:300px;height:300px;bottom:60px;right:-70px;opacity:.34;background:radial-gradient(ellipse at 50% 45%,#d4ecf8 0%,#e8d8f0 52%,transparent 76%);}
+.b5{width:320px;height:200px;top:200px;right:5px;opacity:.24;background:radial-gradient(ellipse at 60% 40%,#e8f0e4 0%,#d8ecd4 42%,transparent 80%);}
+.frost{position:absolute;inset:0;background:var(--frost);pointer-events:none;z-index:1;}
+.ray{position:absolute;top:-8%;left:20%;width:58%;height:72%;background:linear-gradient(172deg,rgba(255,255,255,0.28) 0%,rgba(200,225,245,0.11) 38%,transparent 68%);transform:rotate(-6deg);border-radius:50%;filter:blur(10px);pointer-events:none;z-index:2;}
+.content{position:relative;z-index:3;min-height:100dvh;display:flex;flex-direction:column;}
+/* Top bar */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:env(safe-area-inset-top,14px) 20px 0;height:52px;position:relative;z-index:10;}
+.wm{font-size:9px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:var(--tm);}
+.topdate{font-size:9px;font-weight:300;letter-spacing:.12em;color:var(--tm);}
+/* Pages */
+.pages{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nav) + 12px);}
+.page{display:none;padding:8px 20px 20px;opacity:0;transform:translateY(6px);transition:opacity .32s var(--ease),transform .32s var(--ease);}
+.page.active{display:block;opacity:1;transform:translateY(0);}
+/* Animations */
+@keyframes fadeRise{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.fi{opacity:0;animation:fadeRise .44s var(--ease) forwards;}
+.d0{animation-delay:0s;}.d1{animation-delay:.07s;}.d2{animation-delay:.13s;}.d3{animation-delay:.19s;}.d4{animation-delay:.25s;}.d5{animation-delay:.31s;}
+@media(prefers-reduced-motion:reduce){.fi{animation:none;opacity:1;transform:none;}}
+/* Card */
+.card{background:linear-gradient(145deg,rgba(255,255,255,.68),rgba(255,255,255,.34));border:1px solid var(--cb);backdrop-filter:blur(22px) saturate(1.08);-webkit-backdrop-filter:blur(22px) saturate(1.08);border-radius:var(--rxl);box-shadow:var(--cs),var(--ci);overflow:hidden;}
+/* Nav */
+.navwrap{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom,10px);padding-top:8px;pointer-events:none;}
+.navpill{display:flex;gap:2px;align-items:center;padding:6px 10px;background:rgba(255,255,255,0.58);border:1px solid rgba(255,255,255,0.58);backdrop-filter:blur(26px) saturate(1.12);-webkit-backdrop-filter:blur(26px) saturate(1.12);border-radius:var(--rpill);box-shadow:0 10px 34px rgba(45,105,150,0.16),inset 0 1px 0 rgba(255,255,255,0.95);pointer-events:all;}
+.ni{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:48px;height:48px;border-radius:var(--rpill);color:var(--tm);-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s;}
+.ni svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.ni span{font-size:7px;font-weight:300;letter-spacing:.06em;opacity:.8;}
+.ni.act{background:var(--pa);color:var(--acc);}
+/* Shared */
+.slabel{font-size:9px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:var(--tm);padding-top:24px;padding-bottom:12px;}
+.slabel:first-child{padding-top:12px;}
+.rule{width:100%;height:1px;background:var(--rule);margin:16px 0;}
+.cta-line{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);cursor:pointer;-webkit-tap-highlight-color:transparent;margin-top:8px;}
+.cta-line span{font-family:var(--fd);font-style:italic;font-size:14px;color:var(--ts);}
+.cta-line svg{width:14px;height:14px;stroke:var(--tm);fill:none;stroke-width:1.5;}
+.empty-msg{font-family:var(--fd);font-style:italic;font-size:16px;color:var(--ts);padding:20px 0;line-height:1.5;}
+/* Pills / tags */
+.tag{display:inline-flex;align-items:center;padding:3px 9px;border-radius:var(--rpill);font-size:9px;font-weight:300;letter-spacing:.09em;border:1px solid;}
+.tag-blue{background:var(--accbg);border-color:var(--accb);color:var(--acc);}
+.tag-gold{background:var(--apricot-bg);border-color:rgba(200,140,60,0.3);color:var(--apricot);}
+.tag-green{background:var(--moss-bg);border-color:rgba(90,120,80,0.25);color:var(--moss);}
+/* ── TODAY ── */
+.greeting{font-family:var(--fd);font-style:italic;font-size:26px;line-height:1.32;color:var(--tp);padding:14px 0 6px;}
+.whisper{font-family:var(--fd);font-style:italic;font-size:14px;color:var(--ts);line-height:1.6;padding-bottom:4px;}
+.energy-row{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:4px;}
+.ebtn{flex:1;min-width:72px;padding:9px 6px;text-align:center;border-radius:var(--rlg);border:1px solid var(--pb);background:var(--pill);font-size:10px;font-weight:300;letter-spacing:.08em;color:var(--ts);cursor:pointer;transition:background .2s,border-color .2s,color .2s;-webkit-tap-highlight-color:transparent;}
+.ebtn.sel{background:var(--pa);border-color:var(--pab);color:var(--acc);}
+.intention-input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--rule);padding:10px 0;font-family:var(--fd);font-style:italic;font-size:18px;color:var(--tp);outline:none;line-height:1.4;}
+.intention-input::placeholder{color:var(--tm);font-size:16px;}
+.anchor-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rule);}
+.anchor-row:last-child{border-bottom:none;}
+.anchor-check{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--cb);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;background:rgba(255,255,255,0.5);transition:background .2s,border-color .2s;}
+.anchor-check.done{background:var(--acc);border-color:var(--acc);}
+.anchor-check svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.5;display:none;}
+.anchor-check.done svg{display:block;}
+.anchor-label{flex:1;font-size:13px;font-weight:300;color:var(--ts);}
+.anchor-tag{font-size:9px;letter-spacing:.10em;text-transform:uppercase;color:var(--tm);}
+.pinned-transit{padding:12px 16px;border-left:2px solid var(--acc);margin-top:12px;background:var(--accbg);border-radius:0 var(--rmd) var(--rmd) 0;}
+.pinned-transit p{font-size:12px;font-weight:300;color:var(--ts);line-height:1.6;}
+/* ── RITUALS ── */
+.subtabs{display:flex;gap:6px;padding-bottom:4px;}
+.stab{padding:7px 16px;border-radius:var(--rpill);border:1px solid var(--pb);background:var(--pill);font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:var(--ts);cursor:pointer;transition:background .2s;-webkit-tap-highlight-color:transparent;}
+.stab.act{background:var(--pa);border-color:var(--pab);color:var(--acc);}
+.ritual-item-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--rule);}
+.ritual-item-row:last-child{border-bottom:none;}
+.rcheck{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--cb);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;background:rgba(255,255,255,0.5);transition:background .2s,border-color .2s;}
+.rcheck.done{background:var(--apricot);border-color:var(--apricot);}
+.rcheck svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.5;display:none;}
+.rcheck.done svg{display:block;}
+.rcheck-label{flex:1;font-size:13px;font-weight:300;color:var(--ts);}
+.rcheck-row.done .rcheck-label{opacity:.45;text-decoration:line-through;}
+.two-thirds{font-size:11px;font-weight:300;color:var(--tm);text-align:center;padding:16px 0 8px;font-style:italic;font-family:var(--fd);}
+/* ── FOCUS ── */
+.timer-card{padding:28px 20px;text-align:center;}
+.timer-display{font-family:var(--fd);font-size:54px;font-weight:400;color:var(--tp);letter-spacing:-.02em;line-height:1;margin:8px 0 20px;}
+.timer-modes{display:flex;gap:6px;justify-content:center;margin-bottom:20px;}
+.tmode{padding:6px 14px;border-radius:var(--rpill);border:1px solid var(--pb);background:var(--pill);font-size:9px;font-weight:300;letter-spacing:.10em;color:var(--ts);cursor:pointer;transition:background .2s;-webkit-tap-highlight-color:transparent;}
+.tmode.act{background:var(--pa);border-color:var(--pab);color:var(--acc);}
+.timer-btns{display:flex;gap:10px;justify-content:center;}
+.tbtn{padding:10px 28px;border-radius:var(--rpill);border:1px solid var(--cb);background:var(--card);backdrop-filter:blur(12px);font-size:10px;font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);cursor:pointer;transition:background .2s;-webkit-tap-highlight-color:transparent;}
+.tbtn:active{background:var(--accbg);}
+.tbtn.primary{background:var(--acc);color:#fff;border-color:var(--acc);}
+.tbtn.primary:active{opacity:.85;}
+/* Brain dump */
+.dump-input-row{display:flex;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--rule);}
+.dump-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--fd);font-style:italic;font-size:15px;color:var(--tp);}
+.dump-input::placeholder{color:var(--tm);font-size:14px;}
+.dump-add{width:32px;height:32px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;}
+.dump-add svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2;}
+.dump-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid var(--rule);}
+.dump-text{flex:1;font-size:13px;font-weight:300;color:var(--ts);line-height:1.5;}
+.dump-bucket{font-size:8px;letter-spacing:.10em;text-transform:uppercase;color:var(--tm);padding-top:2px;}
+.bucket-select{font-size:9px;background:transparent;border:1px solid var(--pb);border-radius:var(--rpill);padding:3px 8px;color:var(--ts);outline:none;cursor:pointer;}
+.dump-del{opacity:0;cursor:pointer;padding:4px;color:var(--tm);transition:opacity .15s;}
+.dump-item:active .dump-del{opacity:1;}
+.dump-del svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.5;}
+/* Wandering rescue */
+.rescue-step{padding:14px 16px;border-bottom:1px solid var(--rule);}
+.rescue-step:last-child{border-bottom:none;}
+.rescue-q{font-family:var(--fd);font-style:italic;font-size:14px;color:var(--tp);margin-bottom:8px;}
+.rescue-input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--rule);padding:6px 0;font-size:13px;font-weight:300;color:var(--ts);outline:none;}
+.rescue-input::placeholder{color:var(--tm);}
+/* AI prompt */
+.prompt-box{background:rgba(255,255,255,0.35);border:1px solid var(--cb);border-radius:var(--rlg);padding:14px;font-size:12px;font-weight:300;color:var(--ts);line-height:1.7;white-space:pre-wrap;word-break:break-word;margin-top:12px;user-select:all;}
+/* ── COMPASS ── */
+.goal-row{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--rule);}
+.goal-label{font-size:9px;font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:var(--tm);width:80px;flex-shrink:0;padding-top:2px;line-height:1.4;}
+.goal-input{flex:1;background:transparent;border:none;outline:none;font-family:var(--fd);font-style:italic;font-size:15px;color:var(--tp);line-height:1.4;resize:none;min-height:24px;}
+.goal-input::placeholder{color:var(--tm);font-size:13px;}
+/* Astro */
+.astro-input-row{display:flex;gap:8px;align-items:center;}
+.astro-input{flex:1;background:transparent;border:1px solid var(--cb);border-radius:var(--rlg);padding:10px 14px;font-size:13px;font-weight:300;color:var(--tp);outline:none;backdrop-filter:blur(8px);}
+.astro-input::placeholder{color:var(--tm);}
+.astro-go{padding:10px 18px;border-radius:var(--rpill);background:var(--acc);color:#fff;font-size:9px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;flex-shrink:0;border:none;-webkit-tap-highlight-color:transparent;}
+.astro-chips{display:flex;gap:6px;flex-wrap:wrap;padding:10px 0;}
+.achip{padding:5px 10px;border-radius:var(--rpill);border:1px solid var(--pb);background:var(--pill);font-size:10px;font-weight:300;color:var(--ts);cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.astro-result{margin-top:12px;}
+.astro-field{padding:12px 16px;border-bottom:1px solid var(--rule);}
+.astro-field:last-child{border-bottom:none;}
+.astro-field-label{font-size:9px;font-weight:300;letter-spacing:.14em;text-transform:uppercase;color:var(--tm);margin-bottom:5px;}
+.astro-field-val{font-size:13px;font-weight:300;color:var(--ts);line-height:1.65;}
+.astro-field-val em{font-family:var(--fd);font-style:italic;color:var(--tp);}
+.astro-pin{padding:8px 14px;border-radius:var(--rpill);border:1px solid var(--accb);background:var(--accbg);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);cursor:pointer;margin-top:12px;display:inline-flex;align-items:center;gap:6px;-webkit-tap-highlight-color:transparent;}
+.astro-hist-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule);}
+.astro-hist-text{flex:1;font-size:12px;font-weight:300;color:var(--ts);}
+.astro-hist-date{font-size:9px;color:var(--tm);letter-spacing:.10em;}
+/* ── CARE ── */
+.care-card{overflow:hidden;margin-bottom:8px;border-radius:var(--rlg);}
+.care-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.care-title{font-family:var(--fd);font-style:italic;font-size:16px;color:var(--tp);}
+.care-chevron{width:14px;height:14px;stroke:var(--tm);fill:none;stroke-width:1.5;transition:transform .25s var(--ease);}
+.care-card.open .care-chevron{transform:rotate(180deg);}
+.care-body{display:none;padding:0 18px 16px;}
+.care-card.open .care-body{display:block;}
+.care-line{font-family:var(--fd);font-style:italic;font-size:14px;color:var(--tp);line-height:1.55;margin-bottom:8px;}
+.care-reframe{font-size:13px;font-weight:300;color:var(--ts);line-height:1.7;margin-bottom:10px;}
+.care-action{font-size:11px;font-weight:300;letter-spacing:.10em;text-transform:uppercase;color:var(--acc);padding-top:6px;border-top:1px solid var(--rule);}
+.word-of-day{padding:20px;text-align:center;}
+.word-display{font-family:var(--fd);font-size:36px;font-weight:400;color:var(--tp);margin-bottom:6px;}
+.word-hint{font-size:11px;font-weight:300;color:var(--tm);font-style:italic;}
+.grounding-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule);}
+.grounding-item:last-child{border-bottom:none;}
+.grounding-dot{width:5px;height:5px;border-radius:50%;background:var(--acc);flex-shrink:0;margin-top:5px;}
+.grounding-text{font-size:13px;font-weight:300;color:var(--ts);line-height:1.5;}
+/* ── PROOF ── */
+.proof-input-row{display:flex;gap:8px;align-items:flex-end;margin-bottom:4px;}
+.proof-input{flex:1;background:transparent;border:none;border-bottom:1px solid var(--rule);padding:8px 0;font-family:var(--fd);font-style:italic;font-size:15px;color:var(--tp);outline:none;}
+.proof-input::placeholder{color:var(--tm);font-size:13px;}
+.proof-type-row{display:flex;gap:6px;flex-wrap:wrap;padding:8px 0 12px;}
+.proof-type-btn{padding:5px 12px;border-radius:var(--rpill);border:1px solid var(--pb);background:var(--pill);font-size:9px;font-weight:300;letter-spacing:.09em;color:var(--ts);cursor:pointer;transition:background .2s;-webkit-tap-highlight-color:transparent;}
+.proof-type-btn.sel{background:var(--pa);border-color:var(--pab);color:var(--acc);}
+.proof-save-btn{padding:10px 20px;border-radius:var(--rpill);background:var(--acc);color:#fff;font-size:9px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;}
+.proof-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--rule);}
+.proof-item-text{flex:1;font-size:13px;font-weight:300;color:var(--ts);line-height:1.5;}
+.proof-item-meta{display:flex;align-items:center;gap:6px;margin-top:4px;}
+.proof-date{font-size:9px;color:var(--tm);letter-spacing:.10em;}
+.proof-del{opacity:0;cursor:pointer;color:var(--dest);-webkit-tap-highlight-color:transparent;padding:2px;}
+.proof-item:active .proof-del{opacity:1;}
+.proof-del svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.5;}
+/* ── AFFIRMATION CARDS ── */
+.cards-intro{font-family:var(--fd);font-style:italic;font-size:15px;color:var(--ts);line-height:1.6;padding-bottom:14px;}
+.card-spread{display:flex;justify-content:center;gap:10px;padding:18px 0 20px;perspective:900px;}
+.oracle-card{position:relative;width:30%;max-width:104px;aspect-ratio:.68/1;border-radius:18px;border:1px solid rgba(255,255,255,.64);background:rgba(255,255,255,.42);box-shadow:0 14px 34px rgba(55,105,140,.16),inset 0 1px 0 rgba(255,255,255,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transform:rotate(var(--tilt));transform-style:preserve-3d;transition:transform .34s var(--ease),box-shadow .22s var(--ease),opacity .22s var(--ease);}
+.oracle-card:nth-child(2){margin-top:10px;}
+.oracle-card:hover,.oracle-card:focus-visible{box-shadow:0 18px 44px rgba(45,105,150,.22),inset 0 1px 0 rgba(255,255,255,.95);outline:none;}
+.oracle-card.picked{transform:translateY(-8px) rotate(0deg) scale(1.04);}
+.oracle-card.dimmed{opacity:.46;transform:rotate(var(--tilt)) scale(.94);}
+.oracle-card-inner{position:absolute;inset:6px;border-radius:14px;overflow:hidden;background:#f8f4e9;}
+.oracle-card-back{position:absolute;inset:0;background:radial-gradient(circle at 50% 25%,rgba(255,255,255,.88) 0 22%,transparent 23%),linear-gradient(145deg,#edf1df,#d8e6dc 48%,#f8f1df);}
+.oracle-card-back::before{content:"";position:absolute;inset:18%;border:1px solid rgba(35,96,130,.36);border-radius:999px;}
+.oracle-card-back::after{content:"";position:absolute;left:50%;top:18%;width:1px;height:64%;background:rgba(35,96,130,.26);box-shadow:20px 18px 0 rgba(35,96,130,.14),-20px 18px 0 rgba(35,96,130,.14);transform:translateX(-50%) rotate(18deg);}
+.oracle-card-front{position:absolute;inset:0;display:none;background:#fbf7ea;}
+.oracle-card.picked .oracle-card-back{display:none;}
+.oracle-card.picked .oracle-card-front{display:block;}
+.oracle-art{position:absolute;inset:0;overflow:hidden;background:#fbf7ea;}
+.oracle-art.sun::before{content:"";position:absolute;left:50%;top:12%;width:132px;height:132px;border-radius:50%;background:#f5df8a;transform:translateX(-50%);box-shadow:0 0 0 46px #df8e35;}
+.oracle-art.sun::after{content:"";position:absolute;left:18%;right:18%;bottom:18%;height:18px;background:#b97830;border-radius:50%;box-shadow:0 14px 0 rgba(93,80,45,.18);}
+.oracle-art.tree::before{content:"";position:absolute;left:9%;right:9%;top:12%;height:54px;border-radius:60% 45% 55% 50%;background:#9bb49c;box-shadow:44px 64px 0 -10px #78947e,-42px 86px 0 -14px #6f8c76;}
+.oracle-art.tree::after{content:"";position:absolute;left:49%;top:42%;width:16px;height:78px;background:#a16234;border-radius:999px;transform:rotate(13deg);box-shadow:-28px 10px 0 -4px #965b31,24px 22px 0 -5px #9a5e33;}
+.oracle-art.fruit::before{content:"";position:absolute;left:50%;top:28%;width:94px;height:94px;border-radius:52% 48% 50% 54%;background:#ee8c14;transform:translateX(-50%);box-shadow:inset 8px -8px 0 rgba(201,83,18,.14);}
+.oracle-art.fruit::after{content:"";position:absolute;left:50%;top:24%;width:12px;height:10px;border-radius:60% 40% 70% 30%;background:#24784e;transform:translateX(-50%) rotate(-12deg);}
+.oracle-art.moon::before{content:"";position:absolute;right:-8%;top:8%;width:120px;height:120px;border-radius:50%;background:#f8edcc;box-shadow:-18px 8px 0 #e79b63;}
+.oracle-art.moon::after{content:"";position:absolute;left:14%;right:14%;bottom:18%;height:34px;border-radius:50%;background:#89a595;box-shadow:16px -28px 0 -8px #ba7a49;}
+.oracle-art.path::before{content:"";position:absolute;left:50%;top:12%;width:126px;height:126px;border-radius:50%;background:#f4df9b;transform:translateX(-50%);}
+.oracle-art.path::after{content:"";position:absolute;left:12%;right:12%;bottom:18%;height:42px;border-radius:50% 50% 20% 20%;background:linear-gradient(90deg,#b57a3d,#ddad55);transform:skewY(-7deg);}
+.oracle-blue{position:absolute;left:12px;right:12px;bottom:11px;font-size:8px;line-height:1.25;letter-spacing:.18em;text-transform:uppercase;color:#1f78bd;font-weight:400;text-align:center;}
+.oracle-result{min-height:156px;padding:18px;text-align:center;}
+.oracle-kicker{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tm);padding-bottom:9px;}
+.oracle-title{font-family:var(--fd);font-style:italic;font-size:26px;line-height:1.12;color:var(--tp);padding-bottom:10px;}
+.oracle-message{font-size:13px;font-weight:300;line-height:1.7;color:var(--ts);}
+.oracle-actions{display:flex;justify-content:center;padding-top:14px;}
+.oracle-draw-btn{padding:10px 20px;border-radius:var(--rpill);background:var(--acc);color:#fff;font-size:9px;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 10px 24px rgba(45,105,150,.16);}
+/* Settings */
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--rule);cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.settings-label{font-size:13px;font-weight:300;color:var(--tp);}
+.settings-sub{font-size:9px;font-weight:300;letter-spacing:.09em;color:var(--tm);margin-top:2px;}
+.settings-row svg{width:13px;height:13px;stroke:var(--tm);fill:none;stroke-width:1.5;}
+.settings-row.dest .settings-label{color:var(--dest);}
+@media (min-width:720px){
+  body{min-height:100dvh;padding:40px 0;background:
+    radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.46) 0%,rgba(255,255,255,0) 34%),
+    linear-gradient(180deg,#3f8799 0%,#a9c9bd 44%,#e5eee8 100%);
+  }
+  .app{max-width:390px;min-height:760px;margin:0 auto;border:1px solid rgba(255,255,255,.44);border-radius:34px;background:rgba(237,242,240,.56);box-shadow:0 26px 80px rgba(24,70,96,.30),inset 0 1px 0 rgba(255,255,255,.66);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);overflow:hidden;}
+  .content{min-height:760px;}
+  .navwrap{position:absolute;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div><div class="blob b5"></div>
+  <div class="frost"></div><div class="ray"></div>
+  <div class="content">
+    <header class="topbar">
+      <span class="wm">Personal OS</span>
+      <span class="topdate" id="topdate"></span>
+    </header>
+    <main class="pages">
+
+      <!-- TODAY -->
+      <div id="pg-today" class="page active">
+        <p class="greeting fi d0" id="greeting">Good morning, Ronsa.</p>
+        <p class="whisper fi d1" id="whisper"></p>
+        <p class="slabel fi d2">Energy today</p>
+        <div class="energy-row fi d2" id="energy-row">
+          <button class="ebtn" data-e="low">Low</button>
+          <button class="ebtn" data-e="soft">Soft</button>
+          <button class="ebtn" data-e="focused">Focused</button>
+          <button class="ebtn" data-e="powerful">Powerful</button>
+        </div>
+        <p class="slabel fi d3">One intention</p>
+        <input class="intention-input fi d3" id="intention" type="text" placeholder="What matters most today?" maxlength="120">
+        <p class="slabel fi d4">Three anchors</p>
+        <div class="card fi d4" style="padding:4px 0;" id="anchors-card">
+          <div class="anchor-row">
+            <div class="anchor-check" id="anch-body"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span class="anchor-label">Body</span>
+            <span class="anchor-tag">physical</span>
+          </div>
+          <div class="anchor-row">
+            <div class="anchor-check" id="anch-biz"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span class="anchor-label">Business</span>
+            <span class="anchor-tag">work</span>
+          </div>
+          <div class="anchor-row">
+            <div class="anchor-check" id="anch-soul"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span class="anchor-label">Soul</span>
+            <span class="anchor-tag">spirit</span>
+          </div>
+        </div>
+        <div id="pinned-transit-wrap" style="display:none">
+          <p class="slabel fi d5">Transit note</p>
+          <div class="pinned-transit fi d5" id="pinned-transit-text"></div>
+        </div>
+      </div>
+
+      <!-- RITUALS -->
+      <div id="pg-rituals" class="page">
+        <p class="slabel fi d0">Daily rituals</p>
+        <div class="subtabs fi d1" id="ritual-tabs">
+          <button class="stab act" data-tab="morning">Morning</button>
+          <button class="stab" data-tab="midday">Midday</button>
+          <button class="stab" data-tab="night">Night</button>
+        </div>
+        <div class="card fi d2" style="padding:4px 0;" id="ritual-list"></div>
+        <p class="two-thirds">Two out of three still counts.</p>
+      </div>
+
+      <!-- FOCUS -->
+      <div id="pg-focus" class="page">
+        <!-- Timer -->
+        <p class="slabel fi d0">Focus timer</p>
+        <div class="card fi d1 timer-card">
+          <div class="timer-modes" id="timer-modes">
+            <button class="tmode act" data-mins="5">5 min</button>
+            <button class="tmode" data-mins="12">12 min</button>
+            <button class="tmode" data-mins="25">25 min</button>
+            <button class="tmode" data-mins="45">45 min</button>
+          </div>
+          <div class="timer-display" id="timer-display">05:00</div>
+          <div class="timer-btns">
+            <button class="tbtn primary" id="timer-start">Start</button>
+            <button class="tbtn" id="timer-reset">Reset</button>
+          </div>
+        </div>
+        <!-- Brain dump -->
+        <p class="slabel fi d2">Brain dump</p>
+        <div class="card fi d2" style="padding:8px 16px 0;">
+          <div class="dump-input-row">
+            <input class="dump-input" id="dump-input" type="text" placeholder="Throw it in here…" maxlength="200">
+            <div class="dump-add" id="dump-add-btn"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+          </div>
+          <div id="dump-list" style="padding-bottom:4px;"></div>
+        </div>
+        <!-- Wandering rescue -->
+        <p class="slabel fi d3">Lost your thread?</p>
+        <div class="card fi d3" id="rescue-card" style="padding:4px 0;">
+          <div class="rescue-step">
+            <p class="rescue-q">What was I doing before I got distracted?</p>
+            <input class="rescue-input" id="r1" type="text" placeholder="I was…">
+          </div>
+          <div class="rescue-step">
+            <p class="rescue-q">What pulled me away?</p>
+            <input class="rescue-input" id="r2" type="text" placeholder="I got pulled by…">
+          </div>
+          <div class="rescue-step">
+            <p class="rescue-q">Is it urgent, emotional noise, or an idea?</p>
+            <input class="rescue-input" id="r3" type="text" placeholder="It feels like…">
+          </div>
+          <div class="rescue-step">
+            <p class="rescue-q">My next 2-minute step is:</p>
+            <input class="rescue-input" id="r4" type="text" placeholder="Right now I will…">
+          </div>
+        </div>
+        <!-- AI prompt -->
+        <p class="slabel fi d4">Priority prompt</p>
+        <div class="card fi d4" style="padding:16px;">
+          <p style="font-size:12px;font-weight:300;color:var(--ts);line-height:1.6;margin-bottom:12px;">Generate a coaching prompt from your brain dump. Paste it into Claude or ChatGPT.</p>
+          <button class="tbtn" id="gen-prompt-btn" style="width:100%;justify-content:center;display:flex;">Generate prompt</button>
+          <div id="prompt-output" style="display:none;">
+            <div class="prompt-box" id="prompt-text"></div>
+            <button class="tbtn" id="copy-prompt-btn" style="margin-top:10px;width:100%;display:flex;justify-content:center;">Copy to clipboard</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPASS -->
+      <div id="pg-compass" class="page">
+        <p class="slabel fi d0">Compass</p>
+        <div class="subtabs fi d1" id="compass-tabs">
+          <button class="stab act" data-ctab="direction">Direction</button>
+          <button class="stab" data-ctab="astro">Astro</button>
+        </div>
+        <!-- Direction -->
+        <div id="compass-direction" class="fi d2">
+          <div class="card" style="padding:4px 16px;">
+            <div class="goal-row"><span class="goal-label">10-year vision</span><textarea class="goal-input" data-gkey="tenYear" rows="1" placeholder="Who am I becoming?"></textarea></div>
+            <div class="goal-row"><span class="goal-label">5-year direction</span><textarea class="goal-input" data-gkey="fiveYear" rows="1" placeholder="What is taking shape?"></textarea></div>
+            <div class="goal-row"><span class="goal-label">1-year goal</span><textarea class="goal-input" data-gkey="oneYear" rows="1" placeholder="What am I building this year?"></textarea></div>
+            <div class="goal-row"><span class="goal-label">6-month system</span><textarea class="goal-input" data-gkey="sixMonth" rows="1" placeholder="What habits carry me there?"></textarea></div>
+            <div class="goal-row"><span class="goal-label">12-week focus</span><textarea class="goal-input" data-gkey="twelveWeek" rows="1" placeholder="What is my current sprint?"></textarea></div>
+            <div class="goal-row"><span class="goal-label">4-week milestone</span><textarea class="goal-input" data-gkey="fourWeek" rows="1" placeholder="What is the next marker?"></textarea></div>
+            <div class="goal-row"><span class="goal-label">This week</span><textarea class="goal-input" data-gkey="thisWeek" rows="1" placeholder="Three things this week…"></textarea></div>
+            <div class="goal-row" style="border-bottom:none;"><span class="goal-label">Today</span><textarea class="goal-input" data-gkey="todayGoal" rows="1" placeholder="One thing today…"></textarea></div>
+          </div>
+        </div>
+        <!-- Astro -->
+        <div id="compass-astro" style="display:none;" class="fi d2">
+          <div class="astro-chips" id="astro-chips">
+            <span class="achip" data-eg="Transit Moon in 10th house">Moon 10th</span>
+            <span class="achip" data-eg="Transit Venus trine natal MC">Venus trine MC</span>
+            <span class="achip" data-eg="Transit Saturn square natal Moon">Saturn sq Moon</span>
+            <span class="achip" data-eg="Transit Mars in 6th house">Mars 6th</span>
+            <span class="achip" data-eg="Transit Jupiter opposite natal Sun">Jupiter opp Sun</span>
+          </div>
+          <div class="astro-input-row">
+            <input class="astro-input" id="astro-input" type="text" placeholder="e.g. Transit Venus trine natal MC">
+            <button class="astro-go" id="astro-go">Read</button>
+          </div>
+          <div id="astro-result"></div>
+          <div id="astro-history" style="margin-top:20px;"></div>
+        </div>
+      </div>
+
+      <!-- CARE -->
+      <div id="pg-care" class="page">
+        <p class="slabel fi d0">Care</p>
+        <div id="care-cards" class="fi d1"></div>
+        <p class="slabel fi d3">Creative grounding</p>
+        <div class="card fi d3 word-of-day">
+          <div class="word-display" id="word-of-day"></div>
+          <p class="word-hint">Trace it once. Write it once. Feel it once.</p>
+        </div>
+        <p class="slabel fi d4">Two-minute resets</p>
+        <div class="card fi d4" style="padding:4px 16px;" id="grounding-list"></div>
+      </div>
+
+      <!-- PROOF -->
+      <div id="pg-proof" class="page">
+        <p class="slabel fi d0">Proof wall</p>
+        <p style="font-family:var(--fd);font-style:italic;font-size:14px;color:var(--ts);padding-bottom:16px;" class="fi d1">What evidence did you create today?</p>
+        <div class="fi d1">
+          <input class="proof-input" id="proof-input" type="text" placeholder="Something I did, made, or chose…" maxlength="200">
+          <div class="proof-type-row" id="proof-type-row">
+            <button class="proof-type-btn sel" data-pt="Brand">Brand</button>
+            <button class="proof-type-btn" data-pt="Money">Money</button>
+            <button class="proof-type-btn" data-pt="Creative">Creative</button>
+            <button class="proof-type-btn" data-pt="Health">Health</button>
+            <button class="proof-type-btn" data-pt="Courage">Courage</button>
+            <button class="proof-type-btn" data-pt="Identity">Identity</button>
+          </div>
+          <button class="proof-save-btn" id="proof-save">Add to wall</button>
+        </div>
+        <div id="proof-list" class="fi d2" style="padding-top:12px;"></div>
+      </div>
+
+      <!-- CARDS -->
+      <div id="pg-cards" class="page">
+        <p class="slabel fi d0">Affirmation cards</p>
+        <p class="cards-intro fi d1">Choose one card. Let it answer softly.</p>
+        <div class="card-spread fi d2" id="card-spread" aria-label="Pick an affirmation card"></div>
+        <div class="card fi d3 oracle-result" id="oracle-result">
+          <p class="oracle-kicker">Today's draw</p>
+          <h2 class="oracle-title">Pick a card</h2>
+          <p class="oracle-message">A small line will meet you where you are.</p>
+        </div>
+        <div class="oracle-actions fi d4">
+          <button class="oracle-draw-btn" id="oracle-reset">Draw again</button>
+        </div>
+      </div>
+
+    </main>
+    <!-- NAV -->
+    <nav><div class="navwrap"><div class="navpill">
+      <button class="ni act" data-pg="today" aria-label="Today">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Today</span>
+      </button>
+      <button class="ni" data-pg="rituals" aria-label="Rituals">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>Rituals</span>
+      </button>
+      <button class="ni" data-pg="focus" aria-label="Focus">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span>Focus</span>
+      </button>
+      <button class="ni" data-pg="compass" aria-label="Compass">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+        <span>Compass</span>
+      </button>
+      <button class="ni" data-pg="care" aria-label="Care">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span>Care</span>
+      </button>
+      <button class="ni" data-pg="proof" aria-label="Proof">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>Proof</span>
+      </button>
+      <button class="ni" data-pg="cards" aria-label="Cards">
+        <svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="16" rx="2"/><path d="M9 7h6M9 15h6M12 10.5l1.5 1.5L12 13.5 10.5 12z"/></svg>
+        <span>Cards</span>
+      </button>
+    </div></div></nav>
+  </div>
+</div>
+<script>
+// ── STORAGE ──
+const S = {
+  get: (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+  set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+const TODAY = new Date().toISOString().slice(0, 10);
+
+// ── DATA GETTERS/SETTERS ──
+function getToday() {
+  const d = S.get('pos_today_v1', {});
+  if (d.date !== TODAY) return { date: TODAY, energy: null, intention: '', anchors: { body: false, biz: false, soul: false } };
+  return d;
+}
+function saveToday(td) { S.set('pos_today_v1', { ...td, date: TODAY }); }
+
+function getRituals() { return S.get('pos_rituals_v2', {}); }
+function saveRituals(r) { S.set('pos_rituals_v2', r); }
+
+function getDump() { return S.get('pos_dump_v1', []); }
+function saveDump(d) { S.set('pos_dump_v1', d); }
+
+function getGoals() { return S.get('pos_goals_v1', {}); }
+function saveGoals(g) { S.set('pos_goals_v1', g); }
+
+function getProof() { return S.get('pos_proof_v1', []); }
+function saveProof(p) { S.set('pos_proof_v1', p); }
+
+function getAstroHistory() { return S.get('pos_astro_v1', []); }
+function saveAstroHistory(h) { S.set('pos_astro_v1', h); }
+
+function getPinned() { return S.get('pos_pinned_v1', null); }
+function savePin(p) { S.set('pos_pinned_v1', p); }
+
+// ── QUOTES / WHISPERS ──
+const WHISPERS = [
+  "The present moment always will have been.",
+  "Showing up quietly is still showing up.",
+  "You are allowed to move slowly today.",
+  "Small and steady is its own kind of powerful.",
+  "Rest is not a reward. It is part of the work.",
+  "One thing done well is enough.",
+  "Your presence is already a contribution.",
+  "Calm is a form of courage too.",
+  "Let today be lighter than yesterday.",
+  "Soft does not mean weak.",
+  "Nothing is lost that cannot be found again.",
+  "A quiet life can be a full one.",
+  "You've already survived every hard day so far.",
+  "Begin anyway.",
+  "What you tend to grows.",
+  "You don't have to earn rest.",
+  "Trust the quiet.",
+  "Gentleness is not passivity.",
+  "This too is part of it.",
+  "The day is still open."
+];
+const WORDS = ["Still","Begin","Enough","Breathe","Open","Trust","Gentle","Present","Return","Ground","Soften","Hold","Offer","Receive","Notice","Release","Rest","Tend","Allow","Grace"];
+const GROUNDING = [
+  "Name 5 things you can see right now.",
+  "Press both feet flat to the floor for 30 seconds.",
+  "Write 3 sentences. Whatever comes. Don't edit.",
+  "Drink a full glass of water slowly.",
+  "Step outside and feel the air for 60 seconds.",
+  "Hum one note for as long as one breath lasts.",
+  "Close your eyes and list the sounds in the room."
+];
+const AFFIRMATION_CARDS = [
+  { art: "sun", blue: "KEEP THE LIGHT", title: "I am allowed to begin again.", message: "Nothing about today needs to be perfect to be real. Take the next warm step and let that be enough." },
+  { art: "tree", blue: "ROOT THEN RISE", title: "I grow at my own pace.", message: "The quiet work below the surface is still work. Let your roots do their private, patient magic." },
+  { art: "fruit", blue: "SWEETNESS COUNTS", title: "I can receive good things.", message: "Ease does not make you lazy. Pleasure, softness, and support are part of your becoming too." },
+  { art: "moon", blue: "SOFT IS STRONG", title: "My sensitivity is information.", message: "You do not have to turn the volume of your heart all the way down. Listen, then choose gently." },
+  { art: "path", blue: "ONE SMALL WAY", title: "I only need the next small step.", message: "The whole path does not need to reveal itself. Put one foot into the light you can see." }
+];
+const doy = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+
+// ── RITUAL ITEMS ──
+const RITUAL_ITEMS = {
+  morning: ["Drink a full glass of water","Have breakfast","Skincare","Supplements","3-line journal entry","Oura check-in","One grounding breath before opening phone"],
+  midday: ["Proper meal — not at your desk","Stretch or short walk","2-minute reset","Check for spiral thinking","Body check-in: how do I actually feel?"],
+  night: ["Skincare","Supplements","5-minute journal","Tomorrow's one thing","Phone down by 10pm","One moment of emotional release"]
+};
+
+// ── CARE DATA ──
+const CARE_CARDS = [
+  { title: "Comparison", line: "You are not behind. You are on your own path.", reframe: "Comparison is your mind trying to locate you in the world. It usually picks the wrong reference point. Someone else's visible output is not a measure of your invisible becoming.", action: "Write one thing you have that they don't." },
+  { title: "Feeling behind", line: "Behind is a story. Today is real.", reframe: "There is no timeline you're late for. The work you do now counts — even when it can't be seen yet. Slow progress on the right thing beats fast progress on the wrong one.", action: "Name one small thing you moved forward this week." },
+  { title: "Guilt around charging", line: "Your work has worth. Naming a price protects both of you.", reframe: "Charging well is not greed — it is sustainability. When you undercharge, you breed resentment and attract clients who don't value the work. Pricing is an act of integrity.", action: "Write what you'd tell a friend who doubted their rate." },
+  { title: "Overwhelm", line: "You don't have to do it all today.", reframe: "Overwhelm usually means too many tabs open in your mind, not too much actual work. The feeling is not the workload — it is the unprocessed list. Close some tabs.", action: "Pick one task. Just one. Start there." },
+  { title: "Rejection sensitivity", line: "Their no is not your verdict.", reframe: "Rejection sensitivity sharpens the emotional signal far beyond what the event warrants. A delay, a silence, a soft no — none of these are proof of unworthiness. They are information, often about fit.", action: "Separate fact from story. What actually happened?" },
+  { title: "Low confidence", line: "Confidence follows action. It does not precede it.", reframe: "Waiting to feel confident before starting is the trap. Confidence is built in retrospect — you look back and see you survived, created, showed up. It is earned, not summoned.", action: "Do the smallest version of the scary thing. Right now." },
+  { title: "Avoidance", line: "The thing you're avoiding is usually smaller than the avoidance itself.", reframe: "Avoidance is protection from imagined pain — but the avoiding creates real pain. The task itself is rarely the problem. It is the story about the task. Starting breaks the spell.", action: "Set a 5-minute timer. Begin. You can stop after." },
+  { title: "Tiredness", line: "Tired is your body speaking. Listen before it shouts.", reframe: "Pushing through chronic tiredness rarely produces good work — it produces reactive, low-quality output and longer recovery. Rest is not lost time. It is investment in what comes next.", action: "What is one thing you can cancel or move to protect an hour?" }
+];
+
+// ── ASTRO ENGINE ──
+const PLANETS = {
+  Sun: { drive: "identity, vitality, purpose", biz: "leadership, visibility, brand authority", creative: "authentic expression, signature style", shadow: "ego, rigidity", domain: "self" },
+  Moon: { drive: "emotion, rhythm, instinct", biz: "client relationships, nurturing, cycles", creative: "intuition, mood-driven work, flow", shadow: "reactivity, dependency", domain: "emotions" },
+  Mercury: { drive: "thought, communication, detail", biz: "contracts, pitching, messaging, logistics", creative: "writing, editing, idea generation", shadow: "overthinking, scattered focus", domain: "mind" },
+  Venus: { drive: "beauty, value, attraction, harmony", biz: "pricing, aesthetics, collaborations, sales", creative: "visual work, calligraphy, design, sensory craft", shadow: "people-pleasing, avoidance of conflict", domain: "beauty" },
+  Mars: { drive: "action, drive, assertion, courage", biz: "launching, negotiating, pushing forward", creative: "starting, momentum, bold choices", shadow: "impatience, aggression, burnout", domain: "action" },
+  Jupiter: { drive: "expansion, faith, abundance, growth", biz: "opportunity, partnerships, scaling", creative: "big ideas, vision, generosity of expression", shadow: "overextension, excess", domain: "growth" },
+  Saturn: { drive: "structure, discipline, reality, time", biz: "systems, long-term planning, accountability", creative: "mastery through repetition, editing, constraints", shadow: "fear, restriction, self-doubt", domain: "structure" },
+  Uranus: { drive: "disruption, innovation, liberation, change", biz: "pivots, new models, breaking old patterns", creative: "experimentation, unexpected directions", shadow: "instability, inconsistency", domain: "change" },
+  Neptune: { drive: "vision, spirituality, dissolution, dreams", biz: "branding energy, creative intuition, idealism", creative: "atmospheric work, channelling, surrender to process", shadow: "confusion, escapism, unclear boundaries", domain: "vision" },
+  Pluto: { drive: "transformation, power, depth, rebirth", biz: "reinvention, influence, releasing what no longer works", creative: "shadow work, intensity, work that transforms", shadow: "control, obsession, destruction", domain: "transformation" }
+};
+const ASPECTS = {
+  conjunction: { q: "intense activation and new beginning", use: "start something aligned with both energies", shadow: "overwhelm, difficulty separating the two forces", tone: "powerful and focused" },
+  opposition: { q: "balance between two poles", use: "integrate rather than choose — find the middle path", shadow: "tension, projection, being pulled in two directions", tone: "clarifying and challenging" },
+  square: { q: "productive friction and growth pressure", use: "use the tension as fuel — it is forcing necessary change", shadow: "frustration, obstacles, forcing things that need time", tone: "activating and demanding" },
+  trine: { q: "ease, flow, and natural support", use: "move forward with confidence — the energy is aligned", shadow: "complacency, missed opportunity through assuming it will be easy", tone: "supportive and harmonious" },
+  sextile: { q: "gentle opening and invitation", use: "take a small aligned step — the door is ajar, not wide open", shadow: "overlooking the opportunity as too subtle", tone: "quiet and encouraging" }
+};
+const NATAL_POINTS = {
+  Sun: "core identity", Moon: "emotional body", Mercury: "how you think and communicate",
+  Venus: "what you value and attract", Mars: "how you assert and act", Jupiter: "where you expand",
+  Saturn: "where you are tested and must master", Ascendant: "how you meet the world, your presence",
+  MC: "career, public reputation, life direction"
+};
+const HOUSES = {
+  1: { area: "self, identity, appearance, new starts", venture: "personal brand" },
+  2: { area: "money, values, self-worth, resources", venture: "RLA pricing and LYRA revenue" },
+  3: { area: "communication, content, short journeys, siblings", venture: "content creation, Pause It marketing" },
+  4: { area: "home, roots, family, private life", venture: "home environment, personal foundation" },
+  5: { area: "creativity, joy, romance, play, children", venture: "creative work, calligraphy, brand activations" },
+  6: { area: "daily routine, health, work habits, service", venture: "studio rhythm, client delivery, body care" },
+  7: { area: "partnerships, clients, one-to-one relationships", venture: "client relationships, collaborators" },
+  8: { area: "transformation, shared resources, depth, endings", venture: "pricing conversations, rebrands, letting go" },
+  9: { area: "philosophy, expansion, teaching, long journeys", venture: "content with depth, international reach" },
+  10: { area: "career, public reputation, authority", venture: "RLA public presence, LYRA brand authority" },
+  11: { area: "community, vision, future goals, networks", venture: "audience, followers, aligned community" },
+  12: { area: "solitude, healing, hidden self, endings", venture: "inner work, rest, creative hibernation" }
+};
+
+function parseTransit(raw) {
+  const s = raw.trim();
+  let planet = null, aspect = null, natal = null, house = null;
+  const pNames = Object.keys(PLANETS);
+  const aMap = { conjunction:['conjunct','conjunction','conj'], opposition:['opposite','opposition','opp'], square:['square','sq'], trine:['trine','tri'], sextile:['sextile','sext'] };
+  const hMatch = s.match(/(\d+)(?:st|nd|rd|th)?\s+house/i);
+  if (hMatch) house = parseInt(hMatch[1]);
+  for (const p of pNames) { if (s.toLowerCase().includes(p.toLowerCase())) { planet = p; break; } }
+  for (const [asp, syns] of Object.entries(aMap)) { if ([asp,...syns].some(syn => s.toLowerCase().includes(syn))) { aspect = asp; break; } }
+  const nPoints = ['MC','Ascendant','Midheaven',...pNames];
+  const afterAspect = aspect ? s.slice(s.toLowerCase().indexOf(aspect)) : s;
+  for (const np of nPoints) { const n = np === 'Midheaven' ? 'MC' : np; if (afterAspect.toLowerCase().includes(np.toLowerCase()) && np.toLowerCase() !== planet?.toLowerCase()) { natal = n; break; } }
+  return { planet, aspect, natal, house };
+}
+
+function interpretTransit(raw) {
+  const { planet, aspect, natal, house } = parseTransit(raw);
+  if (!planet) return null;
+  const P = PLANETS[planet];
+  const A = aspect ? ASPECTS[aspect] : null;
+  const N = natal ? NATAL_POINTS[natal] : null;
+  const H = house ? HOUSES[house] : null;
+  const area = H ? H.area : (N || P.domain);
+  const venture = H ? H.venture : "your work and creative life";
+  const aspLine = A ? `${aspect} (${A.q})` : "activation";
+  const tone = A ? A.tone : "active";
+  return {
+    transit: `${planet}${aspect ? ' ' + aspect : ''}${natal ? ' natal ' + natal : ''}${house ? ' in ' + house + (house===1?'st':house===2?'nd':house===3?'rd':'th') + ' house' : ''}`,
+    theme: `${planet} energy (${P.drive}) is ${A ? 'in ' + aspLine + ' with ' + (natal||'your chart') : 'moving through your ' + area}`,
+    area: area,
+    emotional: `${planet}'s influence on your emotional body: ${P.drive}. Watch for ${P.shadow}.`,
+    work: `Because ${planet} rules ${P.domain}, this touches ${venture}. ${A ? 'The ' + aspect + ' quality means: ' + A.use + '.' : 'Lean into ' + P.biz + '.'}`,
+    creative: `${P.creative}. ${A ? 'Tone today is ' + A.tone + '.' : ''}`,
+    watch: `Shadow side: ${P.shadow}${A ? '. Also: ' + A.shadow : ''}`,
+    bestUse: `Because ${planet} ${aspect ? aspect + 's' : 'activates'} ${natal || area}: ${A ? A.use : 'work with ' + P.drive}. This is a moment for ${P.biz}.`,
+    action: `One tiny aligned action: engage your ${P.domain} — ${P.creative.split(',')[0].toLowerCase()}.`,
+    journal: `How is ${planet}'s energy (${P.drive}) showing up in my body, work, and relationships right now?`,
+    ritual: `Ground ${planet}'s energy with a moment of intentional ${planet === 'Moon' ? 'stillness and breath' : planet === 'Mars' ? 'movement or a cold splash of water' : planet === 'Saturn' ? 'writing a clear list' : planet === 'Venus' ? 'beauty — light a candle, arrange something' : 'quiet reflection'}.`
+  };
+}
+
+// ── ROUTER ──
+let curPage = 'today';
+function navigate(pg) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.toggle('act', n.dataset.pg === pg));
+  const el = document.getElementById('pg-' + pg);
+  if (!el) return;
+  el.style.opacity = '0';
+  el.classList.add('active');
+  el.querySelectorAll('.fi').forEach(f => { f.style.animation = 'none'; f.offsetHeight; f.style.animation = ''; });
+  requestAnimationFrame(() => { el.style.transition = 'opacity 0.4s var(--ease)'; el.style.opacity = '1'; });
+  curPage = pg;
+  if (pg === 'today') renderToday();
+  if (pg === 'rituals') renderRituals('morning');
+  if (pg === 'focus') renderDump();
+  if (pg === 'compass') renderGoals();
+  if (pg === 'care') renderCare();
+  if (pg === 'proof') renderProof();
+  if (pg === 'cards') renderCards();
+}
+
+// ── TODAY ──
+function renderToday() {
+  const h = new Date().getHours();
+  const gr = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('greeting').textContent = gr + ', Ronsa.';
+  document.getElementById('topdate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  document.getElementById('whisper').textContent = WHISPERS[doy % WHISPERS.length];
+  const td = getToday();
+  document.querySelectorAll('.ebtn').forEach(b => b.classList.toggle('sel', b.dataset.e === td.energy));
+  document.getElementById('intention').value = td.intention || '';
+  const a = td.anchors || {};
+  ['body','biz','soul'].forEach(k => {
+    const el = document.getElementById('anch-' + k);
+    if (el) el.classList.toggle('done', !!a[k]);
+  });
+  const pin = getPinned();
+  const pw = document.getElementById('pinned-transit-wrap');
+  if (pin) { pw.style.display = ''; document.getElementById('pinned-transit-text').innerHTML = '<p><strong>' + esc(pin.title) + '</strong> — ' + esc(pin.lead) + '</p>'; }
+  else pw.style.display = 'none';
+}
+
+// ── RITUALS ──
+let curRitualTab = 'morning';
+function renderRituals(tab) {
+  curRitualTab = tab || curRitualTab;
+  document.querySelectorAll('.stab[data-tab]').forEach(b => b.classList.toggle('act', b.dataset.tab === curRitualTab));
+  const all = getRituals();
+  const dayData = all[TODAY] || { morning: {}, midday: {}, night: {} };
+  const items = RITUAL_ITEMS[curRitualTab];
+  const checks = dayData[curRitualTab] || {};
+  document.getElementById('ritual-list').innerHTML = items.map((item, i) => {
+    const done = !!checks[i];
+    return `<div class="ritual-item-row ${done ? 'rcheck-row done' : 'rcheck-row'}" data-i="${i}"><div class="rcheck ${done ? 'done' : ''}"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><span class="rcheck-label">${esc(item)}</span></div>`;
+  }).join('');
+  document.querySelectorAll('.ritual-item-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const i = parseInt(row.dataset.i);
+      const all2 = getRituals();
+      if (!all2[TODAY]) all2[TODAY] = { morning: {}, midday: {}, night: {} };
+      if (!all2[TODAY][curRitualTab]) all2[TODAY][curRitualTab] = {};
+      all2[TODAY][curRitualTab][i] = !all2[TODAY][curRitualTab][i];
+      saveRituals(all2);
+      renderRituals();
+    });
+  });
+}
+
+// ── FOCUS ──
+let timerInterval = null, timerSecs = 5*60, timerRunning = false, timerMins = 5;
+function renderTimer() {
+  const m = Math.floor(timerSecs / 60), s = timerSecs % 60;
+  document.getElementById('timer-display').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+}
+function setTimerMode(mins) {
+  timerMins = mins;
+  timerSecs = mins * 60;
+  timerRunning = false;
+  clearInterval(timerInterval);
+  document.getElementById('timer-start').textContent = 'Start';
+  document.getElementById('timer-start').classList.add('primary');
+  renderTimer();
+  document.querySelectorAll('.tmode').forEach(b => b.classList.toggle('act', parseInt(b.dataset.mins) === mins));
+}
+
+function renderDump() {
+  const items = getDump();
+  const buckets = ['Now','Next','Later','Emotional noise','Idea bank','Delegate'];
+  document.getElementById('dump-list').innerHTML = items.length === 0 ? '' : items.map(it => `<div class="dump-item" data-id="${it.id}"><div style="flex:1"><div class="dump-text">${esc(it.text)}</div><select class="bucket-select" data-id="${it.id}">${buckets.map(b=>`<option ${it.bucket===b?'selected':''} value="${b}">${b}</option>`).join('')}</select></div><div class="dump-del" data-id="${it.id}"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div></div>`).join('');
+  document.querySelectorAll('.bucket-select').forEach(sel => sel.addEventListener('change', () => {
+    const items2 = getDump().map(it => it.id === sel.dataset.id ? {...it, bucket: sel.value} : it);
+    saveDump(items2); renderDump();
+  }));
+  document.querySelectorAll('.dump-del').forEach(btn => btn.addEventListener('click', () => {
+    saveDump(getDump().filter(it => it.id !== btn.dataset.id)); renderDump();
+  }));
+}
+
+// ── GOALS ──
+function renderGoals() {
+  const goals = getGoals();
+  document.querySelectorAll('.goal-input').forEach(el => {
+    el.value = goals[el.dataset.gkey] || '';
+    autoResize(el);
+    el.addEventListener('input', () => { const g = getGoals(); g[el.dataset.gkey] = el.value; saveGoals(g); autoResize(el); });
+  });
+}
+function autoResize(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
+
+// ── ASTRO ──
+let lastInterpret = null;
+function renderAstroResult(raw) {
+  const r = interpretTransit(raw);
+  if (!r) { document.getElementById('astro-result').innerHTML = '<p class="empty-msg">Could not parse that transit. Try: "Transit Venus trine natal MC"</p>'; return; }
+  lastInterpret = r;
+  const fields = [
+    ['Key transit', r.transit],
+    ['Main theme', r.theme],
+    ['Activated area', r.area],
+    ['Emotional effect', r.emotional],
+    ['Work & business', r.work],
+    ['Creativity', r.creative],
+    ['Pattern to watch', r.watch],
+    ['Best use of today', r.bestUse],
+    ['Tiny aligned action', r.action],
+    ['Journal prompt', r.journal],
+    ['Grounding ritual', r.ritual]
+  ];
+  document.getElementById('astro-result').innerHTML = `<div class="card astro-result" style="padding:4px 0;margin-top:14px;">${fields.map(([l,v])=>`<div class="astro-field"><div class="astro-field-label">${l}</div><div class="astro-field-val">${esc(v)}</div></div>`).join('')}</div><button class="astro-pin" id="astro-pin-btn"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6h6l-5 4 2 7-6-4-6 4 2-7L2 8h6z"/></svg>Pin as today's reminder</button>`;
+  document.getElementById('astro-pin-btn')?.addEventListener('click', () => {
+    savePin({ title: r.transit, lead: r.bestUse });
+    alert('Pinned to Today page.');
+  });
+  const hist = [{ raw, date: TODAY }, ...getAstroHistory().filter(h => h.raw !== raw)].slice(0, 10);
+  saveAstroHistory(hist);
+  renderAstroHistory();
+}
+function renderAstroHistory() {
+  const hist = getAstroHistory();
+  const el = document.getElementById('astro-history');
+  if (!el || hist.length === 0) return;
+  el.innerHTML = '<p class="slabel">Recent readings</p>' + hist.map(h => `<div class="astro-hist-item"><span class="astro-hist-text">${esc(h.raw)}</span><span class="astro-hist-date">${h.date}</span></div>`).join('');
+}
+
+// ── CARE ──
+function renderCare() {
+  document.getElementById('care-cards').innerHTML = CARE_CARDS.map((c,i) => `<div class="card care-card" data-i="${i}" style="padding:0;border-radius:var(--rlg);margin-bottom:8px;"><div class="care-header"><span class="care-title">${c.title}</span><svg class="care-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="care-body"><p class="care-line">${c.line}</p><p class="care-reframe">${c.reframe}</p><p class="care-action">→ ${c.action}</p></div></div>`).join('');
+  document.querySelectorAll('.care-card').forEach(card => card.querySelector('.care-header').addEventListener('click', () => card.classList.toggle('open')));
+  document.getElementById('word-of-day').textContent = WORDS[doy % WORDS.length];
+  document.getElementById('grounding-list').innerHTML = GROUNDING.map(g => `<div class="grounding-item"><span class="grounding-dot"></span><span class="grounding-text">${g}</span></div>`).join('');
+}
+
+// ── PROOF ──
+let proofType = 'Brand';
+function renderProof() {
+  document.querySelectorAll('.proof-type-btn').forEach(b => b.classList.toggle('sel', b.dataset.pt === proofType));
+  const items = getProof();
+  document.getElementById('proof-list').innerHTML = items.length === 0 ? '<p class="empty-msg">Nothing yet. Add your first piece of evidence.</p>' :
+    items.map(p => `<div class="proof-item"><div style="flex:1"><div class="proof-item-text">${esc(p.text)}</div><div class="proof-item-meta"><span class="tag tag-blue">${p.type}</span><span class="proof-date">${p.date}</span></div></div><div class="proof-del" data-id="${p.id}"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div></div>`).join('');
+  document.querySelectorAll('.proof-del').forEach(btn => btn.addEventListener('click', () => { saveProof(getProof().filter(p => p.id !== btn.dataset.id)); renderProof(); }));
+}
+
+// ── AFFIRMATION CARDS ──
+let pickedCard = null;
+function renderCards() {
+  const spread = document.getElementById('card-spread');
+  const result = document.getElementById('oracle-result');
+  if (!spread || !result) return;
+  const tilts = ['-7deg','2deg','7deg'];
+  spread.innerHTML = [0,1,2].map(i => {
+    const card = AFFIRMATION_CARDS[(doy + i * 2) % AFFIRMATION_CARDS.length];
+    const picked = pickedCard === i;
+    const dimmed = pickedCard !== null && pickedCard !== i;
+    return `<button class="oracle-card ${picked ? 'picked' : ''} ${dimmed ? 'dimmed' : ''}" style="--tilt:${tilts[i]}" data-i="${i}" type="button" aria-label="Pick card ${i + 1}">
+      <span class="oracle-card-inner">
+        <span class="oracle-card-back"></span>
+        <span class="oracle-card-front">
+          <span class="oracle-art ${card.art}"></span>
+          <span class="oracle-blue">${card.blue}</span>
+        </span>
+      </span>
+    </button>`;
+  }).join('');
+
+  if (pickedCard === null) {
+    result.innerHTML = '<p class="oracle-kicker">Today&rsquo;s draw</p><h2 class="oracle-title">Pick a card</h2><p class="oracle-message">A small line will meet you where you are.</p>';
+  } else {
+    const card = AFFIRMATION_CARDS[(doy + pickedCard * 2) % AFFIRMATION_CARDS.length];
+    result.innerHTML = `<p class="oracle-kicker">Today&rsquo;s draw</p><h2 class="oracle-title">${esc(card.title)}</h2><p class="oracle-message">${esc(card.message)}</p>`;
+  }
+
+  spread.querySelectorAll('.oracle-card').forEach(btn => btn.addEventListener('click', () => {
+    pickedCard = parseInt(btn.dataset.i);
+    renderCards();
+  }));
+}
+
+function resetCards() {
+  pickedCard = null;
+  renderCards();
+}
+
+// ── UTILS ──
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function uid() { return crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36); }
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', () => {
+  // Nav
+  document.querySelectorAll('.ni').forEach(btn => btn.addEventListener('click', () => navigate(btn.dataset.pg)));
+
+  // Today
+  renderToday();
+  document.querySelectorAll('.ebtn').forEach(b => b.addEventListener('click', () => {
+    const td = getToday(); td.energy = b.dataset.e; saveToday(td);
+    document.querySelectorAll('.ebtn').forEach(x => x.classList.toggle('sel', x.dataset.e === b.dataset.e));
+  }));
+  document.getElementById('intention').addEventListener('input', e => {
+    const td = getToday(); td.intention = e.target.value; saveToday(td);
+  });
+  ['body','biz','soul'].forEach(k => {
+    document.getElementById('anch-' + k)?.addEventListener('click', () => {
+      const td = getToday(); td.anchors = td.anchors || {}; td.anchors[k] = !td.anchors[k]; saveToday(td);
+      document.getElementById('anch-' + k).classList.toggle('done', td.anchors[k]);
+    });
+  });
+
+  // Ritual tabs
+  document.querySelectorAll('.stab[data-tab]').forEach(b => b.addEventListener('click', () => renderRituals(b.dataset.tab)));
+
+  // Timer
+  renderTimer();
+  document.querySelectorAll('.tmode').forEach(b => b.addEventListener('click', () => setTimerMode(parseInt(b.dataset.mins))));
+  document.getElementById('timer-start').addEventListener('click', () => {
+    if (timerRunning) {
+      clearInterval(timerInterval); timerRunning = false;
+      document.getElementById('timer-start').textContent = 'Resume';
+      document.getElementById('timer-start').classList.add('primary');
+    } else {
+      if (timerSecs === 0) { timerSecs = timerMins * 60; renderTimer(); }
+      timerRunning = true;
+      document.getElementById('timer-start').textContent = 'Pause';
+      timerInterval = setInterval(() => {
+        timerSecs--;
+        renderTimer();
+        if (timerSecs <= 0) {
+          clearInterval(timerInterval); timerRunning = false;
+          document.getElementById('timer-start').textContent = 'Done ✓';
+          document.getElementById('timer-start').classList.remove('primary');
+        }
+      }, 1000);
+    }
+  });
+  document.getElementById('timer-reset').addEventListener('click', () => { clearInterval(timerInterval); timerRunning = false; timerSecs = timerMins * 60; renderTimer(); document.getElementById('timer-start').textContent = 'Start'; document.getElementById('timer-start').classList.add('primary'); });
+
+  // Dump
+  renderDump();
+  function addDump() {
+    const inp = document.getElementById('dump-input');
+    const txt = inp.value.trim();
+    if (!txt) return;
+    saveDump([...getDump(), { id: uid(), text: txt, bucket: 'Now' }]);
+    inp.value = '';
+    renderDump();
+  }
+  document.getElementById('dump-add-btn').addEventListener('click', addDump);
+  document.getElementById('dump-input').addEventListener('keydown', e => { if (e.key === 'Enter') addDump(); });
+
+  // AI prompt
+  document.getElementById('gen-prompt-btn').addEventListener('click', () => {
+    const dump = getDump();
+    const goals = getGoals();
+    const td = getToday();
+    const text = `You are a calm, direct thinking partner helping Ronsa, a Hong Kong-based calligrapher and creative founder. She runs RLA (luxury calligraphy/brand activations), LYRA (ritual gifting), and Pause It (cafe marketing). She has ADHD tendencies — scattered focus, overwhelm, and rejection sensitivity. She is building toward independent income and a calm, creative life.
+
+Today's energy: ${td.energy || 'not set'}
+Today's intention: ${td.intention || 'not set'}
+Her 1-year goal: ${goals.oneYear || 'not set'}
+Her 12-week focus: ${goals.twelveWeek || 'not set'}
+
+Brain dump items:
+${dump.length === 0 ? '(empty)' : dump.map(d => `- [${d.bucket}] ${d.text}`).join('\n')}
+
+Please help her:
+1. Identify the one highest-leverage task she should do first today
+2. Flag anything that is emotional noise vs. real work
+3. Suggest what to defer without guilt
+4. Give her a single grounding sentence to begin
+
+Keep it warm, practical, and brief. No bullet-point overwhelm.`;
+    document.getElementById('prompt-text').textContent = text;
+    document.getElementById('prompt-output').style.display = '';
+  });
+  document.getElementById('copy-prompt-btn')?.addEventListener && document.getElementById('copy-prompt-btn').addEventListener('click', () => {
+    const txt = document.getElementById('prompt-text').textContent;
+    if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => { document.getElementById('copy-prompt-btn').textContent = 'Copied!'; setTimeout(() => { document.getElementById('copy-prompt-btn').textContent = 'Copy to clipboard'; }, 2000); });
+    else { const ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }
+  });
+
+  // Compass tabs
+  document.querySelectorAll('.stab[data-ctab]').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.stab[data-ctab]').forEach(x => x.classList.toggle('act', x.dataset.ctab === b.dataset.ctab));
+    document.getElementById('compass-direction').style.display = b.dataset.ctab === 'direction' ? '' : 'none';
+    document.getElementById('compass-astro').style.display = b.dataset.ctab === 'astro' ? '' : 'none';
+    if (b.dataset.ctab === 'astro') renderAstroHistory();
+  }));
+
+  // Astro
+  document.getElementById('astro-go').addEventListener('click', () => {
+    const raw = document.getElementById('astro-input').value.trim();
+    if (raw) renderAstroResult(raw);
+  });
+  document.getElementById('astro-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { const raw = document.getElementById('astro-input').value.trim(); if (raw) renderAstroResult(raw); }
+  });
+  document.querySelectorAll('.achip').forEach(c => c.addEventListener('click', () => {
+    document.getElementById('astro-input').value = c.dataset.eg;
+    renderAstroResult(c.dataset.eg);
+  }));
+
+  // Proof type
+  document.querySelectorAll('.proof-type-btn').forEach(b => b.addEventListener('click', () => {
+    proofType = b.dataset.pt;
+    document.querySelectorAll('.proof-type-btn').forEach(x => x.classList.toggle('sel', x.dataset.pt === proofType));
+  }));
+  document.getElementById('proof-save').addEventListener('click', () => {
+    const txt = document.getElementById('proof-input').value.trim();
+    if (!txt) return;
+    saveProof([{ id: uid(), text: txt, type: proofType, date: TODAY }, ...getProof()]);
+    document.getElementById('proof-input').value = '';
+    renderProof();
+  });
+
+  renderCare();
+  renderProof();
+  renderCards();
+  document.getElementById('oracle-reset')?.addEventListener('click', resetCards);
+});
+</script>
+</body>
+</html>
