@@ -199,38 +199,32 @@ input,textarea,select{font-family:var(--fu);}
 .proof-item:active .proof-del{opacity:1;}
 .proof-del svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.5;}
 /* ── AFFIRMATION CARDS ── */
-.cards-intro{font-family:var(--fd);font-style:italic;font-size:15px;color:var(--ts);line-height:1.6;padding-bottom:14px;}
-.card-spread{display:flex;justify-content:center;gap:10px;padding:18px 0 20px;perspective:900px;}
-.oracle-card{position:relative;width:30%;max-width:104px;aspect-ratio:.68/1;border-radius:18px;border:1px solid rgba(255,255,255,.64);background:rgba(255,255,255,.42);box-shadow:0 14px 34px rgba(55,105,140,.16),inset 0 1px 0 rgba(255,255,255,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transform:rotate(var(--tilt));transform-style:preserve-3d;transition:transform .34s var(--ease),box-shadow .22s var(--ease),opacity .22s var(--ease);}
-.oracle-card:nth-child(2){margin-top:10px;}
-.oracle-card:hover,.oracle-card:focus-visible{box-shadow:0 18px 44px rgba(45,105,150,.22),inset 0 1px 0 rgba(255,255,255,.95);outline:none;}
-.oracle-card.picked{transform:translateY(-8px) rotate(0deg) scale(1.04);}
-.oracle-card.dimmed{opacity:.46;transform:rotate(var(--tilt)) scale(.94);}
-.oracle-card-inner{position:absolute;inset:6px;border-radius:14px;overflow:hidden;background:#f8f4e9;}
-.oracle-card-back{position:absolute;inset:0;background:radial-gradient(circle at 50% 25%,rgba(255,255,255,.88) 0 22%,transparent 23%),linear-gradient(145deg,#edf1df,#d8e6dc 48%,#f8f1df);}
-.oracle-card-back::before{content:"";position:absolute;inset:18%;border:1px solid rgba(35,96,130,.36);border-radius:999px;}
-.oracle-card-back::after{content:"";position:absolute;left:50%;top:18%;width:1px;height:64%;background:rgba(35,96,130,.26);box-shadow:20px 18px 0 rgba(35,96,130,.14),-20px 18px 0 rgba(35,96,130,.14);transform:translateX(-50%) rotate(18deg);}
-.oracle-card-front{position:absolute;inset:0;display:none;background:#fbf7ea;}
-.oracle-card.picked .oracle-card-back{display:none;}
-.oracle-card.picked .oracle-card-front{display:block;}
-.oracle-art{position:absolute;inset:0;overflow:hidden;background:#fbf7ea;}
-.oracle-art.sun::before{content:"";position:absolute;left:50%;top:12%;width:132px;height:132px;border-radius:50%;background:#f5df8a;transform:translateX(-50%);box-shadow:0 0 0 46px #df8e35;}
-.oracle-art.sun::after{content:"";position:absolute;left:18%;right:18%;bottom:18%;height:18px;background:#b97830;border-radius:50%;box-shadow:0 14px 0 rgba(93,80,45,.18);}
-.oracle-art.tree::before{content:"";position:absolute;left:9%;right:9%;top:12%;height:54px;border-radius:60% 45% 55% 50%;background:#9bb49c;box-shadow:44px 64px 0 -10px #78947e,-42px 86px 0 -14px #6f8c76;}
-.oracle-art.tree::after{content:"";position:absolute;left:49%;top:42%;width:16px;height:78px;background:#a16234;border-radius:999px;transform:rotate(13deg);box-shadow:-28px 10px 0 -4px #965b31,24px 22px 0 -5px #9a5e33;}
-.oracle-art.fruit::before{content:"";position:absolute;left:50%;top:28%;width:94px;height:94px;border-radius:52% 48% 50% 54%;background:#ee8c14;transform:translateX(-50%);box-shadow:inset 8px -8px 0 rgba(201,83,18,.14);}
-.oracle-art.fruit::after{content:"";position:absolute;left:50%;top:24%;width:12px;height:10px;border-radius:60% 40% 70% 30%;background:#24784e;transform:translateX(-50%) rotate(-12deg);}
-.oracle-art.moon::before{content:"";position:absolute;right:-8%;top:8%;width:120px;height:120px;border-radius:50%;background:#f8edcc;box-shadow:-18px 8px 0 #e79b63;}
-.oracle-art.moon::after{content:"";position:absolute;left:14%;right:14%;bottom:18%;height:34px;border-radius:50%;background:#89a595;box-shadow:16px -28px 0 -8px #ba7a49;}
-.oracle-art.path::before{content:"";position:absolute;left:50%;top:12%;width:126px;height:126px;border-radius:50%;background:#f4df9b;transform:translateX(-50%);}
-.oracle-art.path::after{content:"";position:absolute;left:12%;right:12%;bottom:18%;height:42px;border-radius:50% 50% 20% 20%;background:linear-gradient(90deg,#b57a3d,#ddad55);transform:skewY(-7deg);}
-.oracle-blue{position:absolute;left:12px;right:12px;bottom:11px;font-size:8px;line-height:1.25;letter-spacing:.18em;text-transform:uppercase;color:#1f78bd;font-weight:400;text-align:center;}
+.cards-intro{font-family:var(--fd);font-style:italic;font-size:15px;color:var(--ts);line-height:1.6;padding-bottom:8px;}
+.cards-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 10px;color:var(--tm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;}
+.cards-stage{position:relative;min-height:300px;margin:4px -10px 10px;overflow:hidden;}
+.cards-stage::before{content:"";position:absolute;inset:16px 0 8px;border-radius:999px;background:radial-gradient(ellipse at 50% 45%,rgba(255,255,255,.54),rgba(255,255,255,0) 62%);filter:blur(2px);pointer-events:none;}
+.cards-stage::after{content:"✦  ·  ✧  ·  ✦";position:absolute;left:0;right:0;top:18px;text-align:center;color:rgba(31,120,189,.32);font-size:13px;letter-spacing:1.1em;pointer-events:none;animation:oracleTwinkle 2.8s ease-in-out infinite alternate;}
+.card-spread{position:relative;height:260px;padding:32px 0 18px;perspective:1100px;}
+.oracle-card{position:absolute;left:calc(50% - 47px + var(--x));top:var(--y);width:94px;aspect-ratio:.68/1;border-radius:18px;border:1px solid rgba(255,255,255,.66);background:rgba(255,255,255,.38);box-shadow:0 16px 34px rgba(55,105,140,.17),inset 0 1px 0 rgba(255,255,255,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transform:rotate(var(--tilt));transform-style:preserve-3d;z-index:var(--z);transition:transform .55s var(--ease),left .55s var(--ease),top .55s var(--ease),box-shadow .24s var(--ease),opacity .26s var(--ease),filter .26s var(--ease);}
+.oracle-card:hover,.oracle-card:focus-visible{box-shadow:0 20px 48px rgba(45,105,150,.26),0 0 0 6px rgba(255,255,255,.18),inset 0 1px 0 rgba(255,255,255,.95);outline:none;}
+.oracle-card.picked{left:calc(50% - 61px);top:8px;width:122px;transform:rotate(0deg) translateY(-4px) scale(1.02);z-index:20;box-shadow:0 26px 60px rgba(45,105,150,.28),0 0 42px rgba(255,255,255,.32),inset 0 1px 0 rgba(255,255,255,.95);}
+.oracle-card.dimmed{opacity:.28;filter:blur(.4px);transform:rotate(var(--tilt)) translateY(16px) scale(.88);}
+.oracle-card-inner{position:absolute;inset:6px;border-radius:14px;overflow:hidden;background:#f8f4e9;transform-style:preserve-3d;transition:transform .62s var(--ease);}
+.oracle-card.picked .oracle-card-inner{transform:rotateY(180deg);}
+.oracle-card-back,.oracle-card-front{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+.oracle-card-back{background:radial-gradient(circle at 50% 25%,rgba(255,255,255,.88) 0 22%,transparent 23%),linear-gradient(145deg,#edf1df,#d8e6dc 48%,#f8f1df);}
+.oracle-card-back::before{content:"";position:absolute;inset:17%;border:1px solid rgba(35,96,130,.34);border-radius:999px;}
+.oracle-card-back::after{content:"";position:absolute;left:50%;top:17%;width:1px;height:65%;background:rgba(35,96,130,.24);box-shadow:18px 18px 0 rgba(35,96,130,.13),-18px 18px 0 rgba(35,96,130,.13);transform:translateX(-50%) rotate(18deg);}
+.oracle-card-front{transform:rotateY(180deg);background:#fbf7ea;}
+.oracle-painting{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.oracle-blue{position:absolute;left:8px;right:8px;bottom:9px;font-size:7px;line-height:1.25;letter-spacing:.15em;text-transform:uppercase;color:#1f78bd;font-weight:500;text-align:center;text-shadow:.4px .4px 0 rgba(255,255,255,.34);}
 .oracle-result{min-height:156px;padding:18px;text-align:center;}
 .oracle-kicker{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tm);padding-bottom:9px;}
 .oracle-title{font-family:var(--fd);font-style:italic;font-size:26px;line-height:1.12;color:var(--tp);padding-bottom:10px;}
 .oracle-message{font-size:13px;font-weight:300;line-height:1.7;color:var(--ts);}
 .oracle-actions{display:flex;justify-content:center;padding-top:14px;}
 .oracle-draw-btn{padding:10px 20px;border-radius:var(--rpill);background:var(--acc);color:#fff;font-size:9px;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 10px 24px rgba(45,105,150,.16);}
+@keyframes oracleTwinkle{from{opacity:.36;transform:translateY(0)}to{opacity:.72;transform:translateY(4px)}}
 /* Settings */
 .settings-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--rule);cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .settings-label{font-size:13px;font-weight:300;color:var(--tp);}
@@ -439,8 +433,14 @@ input,textarea,select{font-family:var(--fu);}
       <!-- CARDS -->
       <div id="pg-cards" class="page">
         <p class="slabel fi d0">Affirmation cards</p>
-        <p class="cards-intro fi d1">Choose one card. Let it answer softly.</p>
-        <div class="card-spread fi d2" id="card-spread" aria-label="Pick an affirmation card"></div>
+        <p class="cards-intro fi d1">Shuffle the deck, then choose the card that seems to breathe first.</p>
+        <div class="cards-meta fi d2">
+          <span>30-card deck</span>
+          <span id="deck-whisper">quietly shuffled</span>
+        </div>
+        <div class="cards-stage fi d2">
+          <div class="card-spread" id="card-spread" aria-label="Pick an affirmation card"></div>
+        </div>
         <div class="card fi d3 oracle-result" id="oracle-result">
           <p class="oracle-kicker">Today's draw</p>
           <h2 class="oracle-title">Pick a card</h2>
@@ -553,11 +553,36 @@ const GROUNDING = [
   "Close your eyes and list the sounds in the room."
 ];
 const AFFIRMATION_CARDS = [
-  { art: "sun", blue: "KEEP THE LIGHT", title: "I am allowed to begin again.", message: "Nothing about today needs to be perfect to be real. Take the next warm step and let that be enough." },
-  { art: "tree", blue: "ROOT THEN RISE", title: "I grow at my own pace.", message: "The quiet work below the surface is still work. Let your roots do their private, patient magic." },
-  { art: "fruit", blue: "SWEETNESS COUNTS", title: "I can receive good things.", message: "Ease does not make you lazy. Pleasure, softness, and support are part of your becoming too." },
-  { art: "moon", blue: "SOFT IS STRONG", title: "My sensitivity is information.", message: "You do not have to turn the volume of your heart all the way down. Listen, then choose gently." },
-  { art: "path", blue: "ONE SMALL WAY", title: "I only need the next small step.", message: "The whole path does not need to reveal itself. Put one foot into the light you can see." }
+  { motif:"sun", blue:"KEEP THE LIGHT", title:"I am allowed to begin again.", message:"Nothing about today needs to be perfect to be real. Take the next warm step and let that be enough.", palette:["#f2df99","#df8e35","#b97830","#fbf4dd"] },
+  { motif:"tree", blue:"ROOT THEN RISE", title:"I grow at my own pace.", message:"The quiet work below the surface is still work. Let your roots do their private, patient magic.", palette:["#9bb49c","#6f8c76","#a16234","#f7f2e6"] },
+  { motif:"fruit", blue:"SWEETNESS COUNTS", title:"I can receive good things.", message:"Ease does not make you lazy. Pleasure, softness, and support are part of your becoming too.", palette:["#ee8c14","#f4b14c","#24784e","#fbf6ea"] },
+  { motif:"moon", blue:"SOFT IS STRONG", title:"My sensitivity is information.", message:"You do not have to turn the volume of your heart all the way down. Listen, then choose gently.", palette:["#f8edcc","#e79b63","#89a595","#fbf7ea"] },
+  { motif:"path", blue:"ONE SMALL WAY", title:"I only need the next small step.", message:"The whole path does not need to reveal itself. Put one foot into the light you can see.", palette:["#f4df9b","#ddad55","#8aa090","#fbf6e8"] },
+  { motif:"seed", blue:"BEGIN SMALL", title:"I trust the seed stage.", message:"A beginning can look almost invisible. That does not mean nothing is happening.", palette:["#d9c081","#7f9a76","#8c623e","#fbf4e4"] },
+  { motif:"cup", blue:"FILL FIRST", title:"I am allowed to replenish.", message:"You do not have to pour from the part of you that is already empty.", palette:["#d5e3df","#86a7a0","#c78255","#faf4e7"] },
+  { motif:"mountain", blue:"STEADY NOW", title:"I can move slowly and still arrive.", message:"Speed is not the proof. Returning is the proof.", palette:["#b7b8a8","#7f8b81","#d7b06a","#fbf3df"] },
+  { motif:"window", blue:"OPEN A LITTLE", title:"I let fresh air reach the stuck place.", message:"You do not need a total reinvention. A small opening changes the room.", palette:["#dfe9e4","#8dafb4","#d39761","#fbf6ec"] },
+  { motif:"star", blue:"NOTICE THE SIGNAL", title:"I can follow a quiet yes.", message:"Not every answer arrives loudly. Some arrive as a small loosening in the body.", palette:["#f6d88f","#2f78ad","#b98248","#fbf4df"] },
+  { motif:"river", blue:"LET IT MOVE", title:"I do not have to hold every feeling.", message:"Emotion is meant to pass through. Let it have a doorway.", palette:["#aac7bd","#6f9aa1","#d9b06c","#fbf4e9"] },
+  { motif:"hands", blue:"I CAN HOLD THIS", title:"I can be tender with myself.", message:"Tenderness is not a detour from strength. It is one of its forms.", palette:["#edc7a6","#b9744c","#8ba083","#fbf5e9"] },
+  { motif:"candle", blue:"ONE TRUE FLAME", title:"I protect my attention.", message:"A single clear flame can warm more than a room full of sparks.", palette:["#f1c66a","#d77838","#6f8576","#fbf2e4"] },
+  { motif:"shell", blue:"LISTEN INWARD", title:"My inner rhythm is valid.", message:"The outside world can be loud and still not be the authority.", palette:["#ead2bd","#d08c6a","#8aa49a","#fbf6ec"] },
+  { motif:"garden", blue:"TEND THE LIVING", title:"I tend what is actually alive.", message:"Put your energy where there is a pulse, not where guilt is pointing.", palette:["#9fb78e","#6f8f66","#c99253","#fbf4e7"] },
+  { motif:"door", blue:"STEP THROUGH", title:"I am ready for one honest move.", message:"Readiness does not always feel brave. Sometimes it feels like opening anyway.", palette:["#d6b06a","#9f6844","#8aa79d","#fbf3e6"] },
+  { motif:"cloud", blue:"LESS PRESSURE", title:"I release the demand to know everything.", message:"You can make the next choice without solving the whole sky.", palette:["#dfe6df","#a3b7af","#d79b62","#fbf7ee"] },
+  { motif:"pearl", blue:"HIDDEN VALUE", title:"My work has quiet worth.", message:"Not everything precious announces itself. Some value is felt before it is named.", palette:["#efe6cb","#d7c18c","#8ea29a","#fbf6e9"] },
+  { motif:"bridge", blue:"MEET YOURSELF", title:"I can cross one honest bridge.", message:"You do not have to leap. Let today be a crossing.", palette:["#cfa06b","#8a6b4d","#98aaa0","#fbf4e7"] },
+  { motif:"mirror", blue:"SEE SOFTLY", title:"I can look at myself without punishment.", message:"Awareness works better without cruelty. Tell the truth kindly.", palette:["#dce9e7","#8fb3b2","#cf8f5f","#fbf6ea"] },
+  { motif:"orange", blue:"TAKE THE JUICE", title:"I can use what life gives me.", message:"Even the sour parts can become fuel, flavor, or proof that you stayed.", palette:["#f29118","#f4c35b","#217a5c","#fbf7ee"] },
+  { motif:"lemon", blue:"ALL OF IT", title:"I can digest what is difficult.", message:"You have met hard things before. This one can be made smaller too.", palette:["#f1d21b","#e6b824","#267c50","#fbf7ee"] },
+  { motif:"field", blue:"ROOM TO BREATHE", title:"I make space before I make decisions.", message:"A crowded mind is not the best place to choose from. Widen first.", palette:["#d8c46d","#9fb37d","#c2864d","#fbf5e6"] },
+  { motif:"vase", blue:"BEAUTY HELPS", title:"I let beauty regulate me.", message:"Beauty is not extra. For you, it is a nervous-system language.", palette:["#ead8c4","#8fa98f","#c57f55","#fbf5e9"] },
+  { motif:"ladder", blue:"ONE RUNG", title:"I rise by one rung at a time.", message:"Tiny upward motion still changes the view.", palette:["#d4a466","#9a693f","#a9b69d","#fbf2e4"] },
+  { motif:"nest", blue:"SAFE ENOUGH", title:"I create safety in small ways.", message:"You do not need perfect conditions. You need one soft place to land.", palette:["#caa16f","#8d6f4f","#9fac8a","#fbf4e7"] },
+  { motif:"rain", blue:"LET IT WASH", title:"I allow the day to rinse me clean.", message:"Not every mood needs analysis. Some only need movement through.", palette:["#b8ccc8","#7ca0a6","#d49a65","#fbf6ed"] },
+  { motif:"sunset", blue:"ENOUGH TODAY", title:"What I did today can be enough.", message:"Completion is not the only measure. Care counts. Returning counts.", palette:["#e9a05b","#d87948","#7f9a89","#fbf1e4"] },
+  { motif:"thread", blue:"FOLLOW THE LINE", title:"I trust the thread I keep returning to.", message:"The pattern matters. What keeps calling you is not random.", palette:["#e2c588","#2478b6","#b9794e","#fbf5e9"] },
+  { motif:"stone", blue:"STAY WITH ME", title:"I am here with myself.", message:"Even if the day wobbles, you can be a steady witness to your own life.", palette:["#b9b8a8","#838b80","#d0a36c","#fbf4e8"] }
 ];
 const doy = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 86400000);
 
@@ -826,21 +851,94 @@ function renderProof() {
 
 // ── AFFIRMATION CARDS ──
 let pickedCard = null;
+let visibleDeck = [];
+let drawSeed = doy;
+
+function seededShuffle(seed) {
+  const arr = AFFIRMATION_CARDS.map((_, i) => i);
+  let s = seed * 9301 + 49297;
+  for (let i = arr.length - 1; i > 0; i--) {
+    s = (s * 9301 + 49297) % 233280;
+    const j = Math.floor((s / 233280) * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function ensureVisibleDeck() {
+  if (visibleDeck.length === 0) visibleDeck = seededShuffle(drawSeed).slice(0, 7);
+}
+
+function oracleSvg(card, idx) {
+  const [a,b,c,paper] = card.palette;
+  const id = `p${idx}-${card.motif}`;
+  const text = esc(card.blue);
+  const motifs = {
+    sun: `<circle cx="70" cy="54" r="47" fill="${a}"/><circle cx="70" cy="54" r="74" fill="${b}" opacity=".82"/><path d="M20 112 C45 101 86 104 122 113 L122 140 L20 140 Z" fill="${c}" opacity=".88"/>`,
+    tree: `<path d="M17 44 C32 17 102 19 121 42 C106 56 39 60 17 44 Z" fill="${a}"/><path d="M41 79 C28 63 55 50 87 59 C98 64 97 82 78 86 C62 90 49 88 41 79 Z" fill="${b}"/><path d="M73 58 C65 80 58 107 57 139 M72 63 C91 80 98 101 104 132 M62 75 C48 92 39 112 32 139" stroke="${c}" stroke-width="9" stroke-linecap="round" fill="none"/>`,
+    fruit: `<path d="M34 67 C31 30 68 18 97 38 C126 61 115 114 76 123 C39 131 15 98 34 67 Z" fill="${a}"/><path d="M55 39 C72 30 96 39 105 60" stroke="${b}" stroke-width="9" opacity=".38" stroke-linecap="round" fill="none"/><path d="M72 30 C74 18 90 18 95 27 C89 32 78 34 72 30 Z" fill="${c}"/>`,
+    moon: `<circle cx="78" cy="58" r="54" fill="${a}"/><circle cx="55" cy="53" r="50" fill="${paper}"/><path d="M24 122 C53 99 95 104 120 123 L120 140 L24 140 Z" fill="${b}" opacity=".72"/>`,
+    path: `<circle cx="71" cy="48" r="50" fill="${a}"/><path d="M18 124 C40 105 61 96 81 82 C93 97 105 112 124 126 L124 140 L18 140 Z" fill="${b}"/><path d="M63 140 C68 112 72 96 80 82" stroke="${paper}" stroke-width="7" stroke-linecap="round"/>`,
+    seed: `<ellipse cx="71" cy="77" rx="34" ry="47" fill="${a}" transform="rotate(-18 71 77)"/><path d="M70 124 C67 92 72 62 86 35" stroke="${c}" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M83 47 C96 34 111 41 113 55 C101 60 90 57 83 47 Z" fill="${b}"/>`,
+    cup: `<path d="M39 54 C55 47 89 47 104 54 L95 119 C84 128 59 128 49 119 Z" fill="${a}"/><path d="M103 68 C126 66 126 101 98 98" stroke="${b}" stroke-width="8" fill="none" stroke-linecap="round"/><path d="M47 61 C61 68 84 68 99 61" stroke="${c}" stroke-width="4" opacity=".55"/>`,
+    mountain: `<path d="M15 126 L55 54 L80 92 L99 65 L127 126 Z" fill="${a}"/><path d="M55 54 L68 78 L44 75 Z M99 65 L108 84 L90 82 Z" fill="${paper}" opacity=".85"/><path d="M18 128 C46 118 88 119 126 128" stroke="${c}" stroke-width="5" fill="none"/>`,
+    window: `<rect x="34" y="33" width="74" height="92" rx="37" fill="${a}"/><path d="M71 34 V126 M36 78 H106" stroke="${b}" stroke-width="5"/><path d="M45 116 C62 102 86 101 101 117" fill="${c}" opacity=".72"/>`,
+    star: `<path d="M71 20 L82 57 L119 56 L88 76 L100 113 L71 90 L42 113 L54 76 L23 56 L60 57 Z" fill="${a}"/><circle cx="71" cy="75" r="16" fill="${b}" opacity=".45"/><path d="M28 130 C56 120 89 120 116 130" stroke="${c}" stroke-width="5"/>`,
+    river: `<path d="M19 37 C49 22 90 26 121 42 L121 140 L19 140 Z" fill="${paper}"/><path d="M37 34 C78 59 36 75 72 98 C91 111 83 124 62 139" stroke="${a}" stroke-width="18" fill="none" stroke-linecap="round"/><path d="M20 124 C52 112 89 115 123 125" stroke="${c}" stroke-width="7" fill="none" opacity=".55"/>`,
+    hands: `<path d="M41 84 C47 62 65 55 72 75 C79 54 100 63 101 85 C100 112 77 124 71 129 C63 123 39 111 41 84 Z" fill="${a}"/><path d="M26 121 C45 107 56 103 71 129 C87 103 100 108 119 121" stroke="${c}" stroke-width="9" stroke-linecap="round" fill="none"/>`,
+    candle: `<path d="M64 50 C57 37 68 25 72 15 C81 29 86 42 76 52 Z" fill="${a}"/><rect x="55" y="57" width="32" height="66" rx="13" fill="${paper}"/><path d="M39 124 C59 115 84 115 105 124" stroke="${c}" stroke-width="7"/>`,
+    shell: `<path d="M30 101 C38 48 104 44 116 100 C99 124 49 125 30 101 Z" fill="${a}"/><path d="M73 49 C68 76 67 96 67 122 M49 64 C57 84 61 101 62 121 M97 65 C86 85 79 103 75 122" stroke="${b}" stroke-width="4" opacity=".65"/>`,
+    garden: `<path d="M20 124 C52 104 91 106 124 124 L124 140 L20 140 Z" fill="${a}"/><path d="M44 119 C39 86 42 65 57 45 M71 119 C71 82 80 60 99 44 M98 120 C95 94 104 80 120 67" stroke="${c}" stroke-width="6" stroke-linecap="round"/><circle cx="58" cy="44" r="13" fill="${b}"/><circle cx="99" cy="43" r="14" fill="${b}"/>`,
+    door: `<path d="M42 125 V48 C43 34 99 34 100 48 V125 Z" fill="${a}"/><path d="M54 125 V59 C60 52 83 52 88 59 V125" fill="${paper}" opacity=".75"/><circle cx="82" cy="88" r="3" fill="${c}"/>`,
+    cloud: `<path d="M29 79 C22 54 53 47 63 62 C74 35 115 49 108 78 C126 83 117 111 92 107 L44 107 C25 106 16 87 29 79 Z" fill="${a}"/><path d="M30 126 C60 117 90 118 116 127" stroke="${b}" stroke-width="6" opacity=".65"/>`,
+    pearl: `<circle cx="71" cy="75" r="42" fill="${a}"/><circle cx="58" cy="61" r="13" fill="${paper}" opacity=".6"/><path d="M30 119 C53 132 91 132 113 119" stroke="${c}" stroke-width="8" fill="none"/>`,
+    bridge: `<path d="M22 113 C46 75 96 75 120 113" stroke="${a}" stroke-width="13" fill="none"/><path d="M29 114 H114 M44 101 V124 M72 91 V126 M100 101 V124" stroke="${c}" stroke-width="5" stroke-linecap="round"/>`,
+    mirror: `<rect x="41" y="28" width="61" height="88" rx="30" fill="${a}"/><rect x="49" y="37" width="45" height="70" rx="23" fill="${paper}" opacity=".78"/><path d="M58 127 H85" stroke="${c}" stroke-width="7" stroke-linecap="round"/>`,
+    orange: `<circle cx="71" cy="76" r="47" fill="${a}"/><path d="M49 45 C66 34 96 45 105 69" stroke="${b}" stroke-width="8" opacity=".45" fill="none"/><path d="M71 28 C77 20 91 23 94 33 C86 37 76 36 71 28 Z" fill="${c}"/>`,
+    lemon: `<path d="M71 23 C106 32 123 73 103 108 C80 139 38 126 28 88 C20 53 39 30 71 23 Z" fill="${a}"/><path d="M47 52 C63 40 91 47 102 69" stroke="${b}" stroke-width="8" opacity=".35" fill="none"/><path d="M71 24 C76 15 88 16 91 26" stroke="${c}" stroke-width="5" fill="none"/>`,
+    field: `<path d="M13 90 C47 68 91 72 128 92 L128 140 L13 140 Z" fill="${a}"/><path d="M16 123 C50 111 91 113 126 125" stroke="${b}" stroke-width="8"/><circle cx="105" cy="47" r="28" fill="${c}" opacity=".8"/>`,
+    vase: `<path d="M51 58 C45 78 47 111 61 125 H82 C96 111 98 78 91 58 C79 65 63 65 51 58 Z" fill="${a}"/><path d="M58 53 C57 31 44 31 41 43 M72 55 C73 29 88 29 91 42 M84 54 C93 33 108 39 105 54" stroke="${b}" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="41" cy="42" r="9" fill="${c}"/><circle cx="91" cy="42" r="9" fill="${c}"/>`,
+    ladder: `<path d="M53 125 L78 35 M88 125 L111 43" stroke="${c}" stroke-width="7" stroke-linecap="round"/><path d="M68 62 H99 M61 86 H93 M55 110 H87" stroke="${a}" stroke-width="6" stroke-linecap="round"/>`,
+    nest: `<path d="M30 104 C45 79 99 79 113 104 C101 127 44 127 30 104 Z" fill="${a}"/><path d="M42 105 C58 97 82 97 101 106" stroke="${c}" stroke-width="6" fill="none"/><circle cx="62" cy="88" r="12" fill="${b}"/><circle cx="83" cy="89" r="11" fill="${b}"/>`,
+    rain: `<path d="M30 72 C25 49 55 43 65 58 C75 35 110 48 108 72 C123 78 114 99 92 98 H44 C25 98 17 79 30 72 Z" fill="${a}"/><path d="M47 112 L41 127 M72 108 L66 126 M97 112 L91 127" stroke="${b}" stroke-width="5" stroke-linecap="round"/>`,
+    sunset: `<circle cx="72" cy="72" r="45" fill="${a}"/><path d="M18 95 H124 V140 H18 Z" fill="${b}"/><path d="M22 115 C53 106 90 108 122 117" stroke="${c}" stroke-width="6" opacity=".55"/>`,
+    thread: `<path d="M29 71 C45 37 77 113 96 58 C106 29 124 49 116 86 C106 130 47 132 31 103" stroke="${b}" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="31" cy="103" r="9" fill="${a}"/><circle cx="96" cy="58" r="8" fill="${c}"/>`,
+    stone: `<path d="M34 84 C33 48 70 34 101 51 C131 78 108 121 70 122 C45 123 29 105 34 84 Z" fill="${a}"/><path d="M45 76 C65 66 93 68 108 83" stroke="${b}" stroke-width="6" opacity=".36" fill="none"/>`
+  };
+  return `<svg class="oracle-painting" viewBox="0 0 142 198" aria-hidden="true">
+    <filter id="${id}-rough"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="${idx + 11}"/><feDisplacementMap in="SourceGraphic" scale="1.8"/></filter>
+    <rect width="142" height="198" fill="${paper}"/>
+    <rect width="142" height="198" filter="url(#${id}-rough)" opacity=".22" fill="#8d805f"/>
+    <g filter="url(#${id}-rough)">${motifs[card.motif] || motifs.sun}</g>
+    <text x="71" y="174" text-anchor="middle" font-size="8" letter-spacing="2.5" fill="#1f78bd" font-family="Inter, sans-serif" font-weight="600">${text}</text>
+  </svg>`;
+}
+
 function renderCards() {
   const spread = document.getElementById('card-spread');
   const result = document.getElementById('oracle-result');
+  const whisper = document.getElementById('deck-whisper');
   if (!spread || !result) return;
-  const tilts = ['-7deg','2deg','7deg'];
-  spread.innerHTML = [0,1,2].map(i => {
-    const card = AFFIRMATION_CARDS[(doy + i * 2) % AFFIRMATION_CARDS.length];
+  ensureVisibleDeck();
+  const layout = [
+    { x: -126, y: 78, tilt: -18, z: 1 },
+    { x: -86, y: 38, tilt: -11, z: 2 },
+    { x: -45, y: 18, tilt: -5, z: 3 },
+    { x: 0, y: 11, tilt: 1, z: 4 },
+    { x: 44, y: 18, tilt: 7, z: 3 },
+    { x: 86, y: 42, tilt: 13, z: 2 },
+    { x: 126, y: 80, tilt: 19, z: 1 }
+  ];
+  spread.innerHTML = visibleDeck.map((deckIndex, i) => {
+    const card = AFFIRMATION_CARDS[deckIndex];
     const picked = pickedCard === i;
     const dimmed = pickedCard !== null && pickedCard !== i;
-    return `<button class="oracle-card ${picked ? 'picked' : ''} ${dimmed ? 'dimmed' : ''}" style="--tilt:${tilts[i]}" data-i="${i}" type="button" aria-label="Pick card ${i + 1}">
+    const l = layout[i];
+    return `<button class="oracle-card ${picked ? 'picked' : ''} ${dimmed ? 'dimmed' : ''}" style="--x:${l.x}px;--y:${l.y}px;--tilt:${l.tilt}deg;--z:${l.z}" data-i="${i}" type="button" aria-label="Pick card ${i + 1}">
       <span class="oracle-card-inner">
         <span class="oracle-card-back"></span>
         <span class="oracle-card-front">
-          <span class="oracle-art ${card.art}"></span>
-          <span class="oracle-blue">${card.blue}</span>
+          ${oracleSvg(card, deckIndex)}
         </span>
       </span>
     </button>`;
@@ -848,12 +946,15 @@ function renderCards() {
 
   if (pickedCard === null) {
     result.innerHTML = '<p class="oracle-kicker">Today&rsquo;s draw</p><h2 class="oracle-title">Pick a card</h2><p class="oracle-message">A small line will meet you where you are.</p>';
+    if (whisper) whisper.textContent = 'quietly shuffled';
   } else {
-    const card = AFFIRMATION_CARDS[(doy + pickedCard * 2) % AFFIRMATION_CARDS.length];
+    const card = AFFIRMATION_CARDS[visibleDeck[pickedCard]];
     result.innerHTML = `<p class="oracle-kicker">Today&rsquo;s draw</p><h2 class="oracle-title">${esc(card.title)}</h2><p class="oracle-message">${esc(card.message)}</p>`;
+    if (whisper) whisper.textContent = `card ${visibleDeck[pickedCard] + 1} of ${AFFIRMATION_CARDS.length}`;
   }
 
   spread.querySelectorAll('.oracle-card').forEach(btn => btn.addEventListener('click', () => {
+    if (pickedCard !== null) return;
     pickedCard = parseInt(btn.dataset.i);
     renderCards();
   }));
@@ -861,6 +962,8 @@ function renderCards() {
 
 function resetCards() {
   pickedCard = null;
+  drawSeed += 17;
+  visibleDeck = seededShuffle(drawSeed).slice(0, 7);
   renderCards();
 }
 
