@@ -1,0 +1,10 @@
+{
+  "name": "Personal OS",
+  "short_name": "Personal OS",
+  "description": "A calm, private daily sanctuary.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#edf2f0",
+  "theme_color": "#edf2f0",
+  "orientation": "portrait"
+}
