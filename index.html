@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#edf2f0">
+  <title>Personal OS</title>
+  <meta http-equiv="refresh" content="0; url=bundle.html">
+  <script>
+    window.location.replace('bundle.html');
+  </script>
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/journal.css">
+  <link rel="stylesheet" href="css/moods.css">
+  <link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+
+<div class="app-root">
+  <!-- Background: 5 iridescent blobs + frost + light ray -->
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
+  <div class="blob blob-4" aria-hidden="true"></div>
+  <div class="blob blob-5" aria-hidden="true"></div>
+  <div class="frost-layer" aria-hidden="true"></div>
+  <div class="light-ray"   aria-hidden="true"></div>
+
+  <div class="app-content">
+
+    <!-- Top bar (persistent) -->
+    <header class="top-bar fade-item d0">
+      <span class="wordmark">Personal OS</span>
+      <span class="top-date"></span>
+    </header>
+
+    <!-- Pages -->
+    <main class="pages">
+
+      <!-- ── HOME ──────────────────────────────────────────────────────────── -->
+      <div id="page-home" class="page active">
+
+        <!-- Quote floats directly in the light field — never inside a card -->
+        <div class="home-quote fade-item d1">
+          <blockquote>
+            <p id="home-quote-text"></p>
+            <cite id="home-quote-cite"></cite>
+          </blockquote>
+        </div>
+
+        <!-- Mood quick-log -->
+        <p class="section-label fade-item d2">How does today feel?</p>
+        <div id="home-mood-row" class="mood-row fade-item d2"></div>
+
+        <!-- Today's checklist -->
+        <p class="section-label fade-item d3">Today</p>
+        <div id="home-checklist" class="checklist fade-item d3"></div>
+
+        <!-- Rituals -->
+        <p class="section-label fade-item d4">Rituals</p>
+        <div id="home-rituals" class="rituals-list fade-item d4"></div>
+
+        <!-- Recent entries -->
+        <p class="section-label fade-item d5">Recent</p>
+        <div id="home-entry-stack" class="entry-stack fade-item d5"></div>
+
+        <!-- CTA — line treatment, no bubble -->
+        <div class="cta-line fade-item d6" id="new-entry-cta">
+          <span>What's sitting with you today?</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- ── JOURNAL ───────────────────────────────────────────────────────── -->
+      <div id="page-journal" class="page">
+
+        <p class="section-label fade-item d0">Journal</p>
+        <div id="journal-list" class="journal-list fade-item d1"></div>
+
+        <div class="cta-line fade-item d2" id="journal-new-btn">
+          <span>Begin a new entry</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- ── MOODS ─────────────────────────────────────────────────────────── -->
+      <div id="page-moods" class="page">
+        <p class="section-label fade-item d0">Mood history</p>
+        <div id="mood-log-list" class="mood-log-list fade-item d1"></div>
+      </div>
+
+      <!-- ── SETTINGS ──────────────────────────────────────────────────────── -->
+      <div id="page-settings" class="page">
+        <p class="section-label fade-item d0">Your space</p>
+        <div class="settings-list fade-item d1">
+
+          <div class="settings-row" id="settings-export">
+            <div>
+              <p class="settings-row-label">Export data</p>
+              <p class="settings-row-sub">Download your entries as JSON</p>
+            </div>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </div>
+
+          <div class="settings-row" id="settings-homescreen">
+            <div>
+              <p class="settings-row-label">Add to home screen</p>
+              <p class="settings-row-sub">Safari → Share → Add to Home Screen</p>
+            </div>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </div>
+
+          <div class="settings-row destructive" id="settings-clear">
+            <div>
+              <p class="settings-row-label">Clear all data</p>
+              <p class="settings-row-sub">This cannot be undone</p>
+            </div>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <polyline points="3 6 5 6 21 6"/>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            </svg>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── NEW ENTRY (overlay) ───────────────────────────────────────────── -->
+      <div id="page-new-entry" class="page new-entry-page">
+
+        <div class="new-entry-header fade-item d0">
+          <button class="back-btn" id="new-entry-back" aria-label="Back">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12"/>
+              <polyline points="12 19 5 12 12 5"/>
+            </svg>
+            Back
+          </button>
+        </div>
+
+        <form id="new-entry-form" class="entry-form">
+          <textarea
+            id="new-title"
+            class="entry-title-input fade-item d1"
+            placeholder="What's sitting with you today?"
+            rows="2"
+            maxlength="120"
+            aria-label="Entry title"
+          ></textarea>
+
+          <div class="rule fade-item d2"></div>
+
+          <p class="section-label fade-item d2" style="padding-top:0">How does today feel?</p>
+          <div id="mood-grid" class="mood-grid fade-item d2"></div>
+
+          <div class="rule fade-item d3"></div>
+
+          <textarea
+            id="new-body"
+            class="entry-body-input fade-item d3"
+            placeholder="Write freely…"
+            rows="8"
+            aria-label="Entry body"
+          ></textarea>
+
+          <!-- Image attach -->
+          <div class="image-attach-wrap fade-item d4">
+            <input type="file" id="image-input" accept="image/*" hidden>
+            <button type="button" class="image-attach-btn" id="image-attach-btn">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              <span>Attach a photo</span>
+            </button>
+            <div id="image-preview-wrap" class="image-preview-wrap" style="display:none">
+              <img id="image-preview" class="image-preview" src="" alt="">
+              <button type="button" class="image-remove-btn" id="image-remove-btn" aria-label="Remove image">×</button>
+            </div>
+          </div>
+
+          <button type="submit" class="save-btn fade-item d5">Save</button>
+        </form>
+
+      </div>
+
+      <!-- ── ENTRY DETAIL (overlay) ────────────────────────────────────────── -->
+      <div id="page-detail" class="page detail-page">
+
+        <img class="detail-hero-image fade-item d0" src="" alt="" style="display:none">
+
+        <div class="detail-body">
+          <div class="new-entry-header" style="padding:0 0 var(--space-md)">
+            <button class="back-btn fade-item d0" aria-label="Back">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <line x1="19" y1="12" x2="5" y2="12"/>
+                <polyline points="12 19 5 12 12 5"/>
+              </svg>
+              Back
+            </button>
+          </div>
+          <div class="card-meta fade-item d1"></div>
+          <div class="rule fade-item d2"></div>
+          <h1 class="detail-title fade-item d2"></h1>
+          <p class="detail-prose fade-item d3"></p>
+          <button class="detail-delete fade-item d4">Remove this entry</button>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Bottom nav — floating pill, icons only (skill spec) -->
+    <nav aria-label="Main navigation">
+      <div class="nav">
+        <div class="nav-pill">
+
+          <button class="nav-item active" data-page="home" aria-label="Home">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </button>
+
+          <button class="nav-item" data-page="journal" aria-label="Journal">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </button>
+
+          <button class="nav-item" data-page="moods" aria-label="Moods">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+              <line x1="9" y1="9" x2="9.01" y2="9"/>
+              <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+          </button>
+
+          <button class="nav-item" data-page="settings" aria-label="Settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </button>
+
+        </div>
+      </div>
+    </nav>
+
+  </div><!-- /app-content -->
+</div><!-- /app-root -->
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
