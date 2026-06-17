@@ -98,6 +98,21 @@ input,textarea,select{font-family:var(--fu);}
 .anchor-tag{font-size:9px;letter-spacing:.10em;text-transform:uppercase;color:var(--tm);}
 .pinned-transit{padding:12px 16px;border-left:2px solid var(--acc);margin-top:12px;background:var(--accbg);border-radius:0 var(--rmd) var(--rmd) 0;}
 .pinned-transit p{font-size:12px;font-weight:300;color:var(--ts);line-height:1.6;}
+.brief-card{padding:16px 18px;margin-top:8px;}
+.brief-line{font-family:var(--fd);font-style:italic;font-size:18px;line-height:1.45;color:var(--tp);margin-bottom:12px;}
+.brief-grid{display:grid;gap:10px;}
+.brief-mini{border-top:1px solid var(--rule);padding-top:10px;}
+.brief-mini-label{font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:var(--tm);margin-bottom:4px;}
+.brief-mini-text{font-size:12px;line-height:1.55;color:var(--ts);}
+.move-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.move-btn{padding:9px 6px;text-align:center;border-radius:var(--rlg);border:1px solid var(--pb);background:var(--pill);font-size:10px;font-weight:300;letter-spacing:.08em;color:var(--ts);-webkit-tap-highlight-color:transparent;}
+.move-btn.sel{background:var(--pa);border-color:var(--pab);color:var(--acc);}
+.landing-row{display:flex;align-items:center;gap:12px;padding:14px 16px;margin-top:10px;}
+.landing-check{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--cb);background:rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.landing-check.done{background:var(--acc);border-color:var(--acc);}
+.landing-check svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2.5;display:none;}
+.landing-check.done svg{display:block;}
+.landing-text{font-family:var(--fd);font-style:italic;font-size:15px;color:var(--ts);}
 /* ── RITUALS ── */
 .subtabs{display:flex;gap:6px;padding-bottom:4px;}
 .stab{padding:7px 16px;border-radius:var(--rpill);border:1px solid var(--pb);background:var(--pill);font-size:9px;font-weight:300;letter-spacing:.12em;text-transform:uppercase;color:var(--ts);cursor:pointer;transition:background .2s;-webkit-tap-highlight-color:transparent;}
@@ -153,6 +168,11 @@ input,textarea,select{font-family:var(--fu);}
 .astro-input{flex:1;background:transparent;border:1px solid var(--cb);border-radius:var(--rlg);padding:10px 14px;font-size:13px;font-weight:300;color:var(--tp);outline:none;backdrop-filter:blur(8px);}
 .astro-input::placeholder{color:var(--tm);}
 .astro-go{padding:10px 18px;border-radius:var(--rpill);background:var(--acc);color:#fff;font-size:9px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;flex-shrink:0;border:none;-webkit-tap-highlight-color:transparent;}
+.astro-profile{padding:14px 16px;margin-bottom:16px;}
+.astro-profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.astro-profile-grid label{display:grid;gap:5px;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--tm);}
+.astro-profile-grid input{width:100%;background:rgba(255,255,255,.34);border:1px solid var(--cb);border-radius:var(--rmd);padding:9px 10px;color:var(--tp);font-size:12px;outline:none;}
+.astro-profile-note{font-size:11px;line-height:1.55;color:var(--tm);padding:10px 0 0;}
 .astro-chips{display:flex;gap:6px;flex-wrap:wrap;padding:10px 0;}
 .achip{padding:5px 10px;border-radius:var(--rpill);border:1px solid var(--pb);background:var(--pill);font-size:10px;font-weight:300;color:var(--ts);cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .astro-result{margin-top:12px;}
@@ -198,6 +218,39 @@ input,textarea,select{font-family:var(--fu);}
 .proof-del{opacity:0;cursor:pointer;color:var(--dest);-webkit-tap-highlight-color:transparent;padding:2px;}
 .proof-item:active .proof-del{opacity:1;}
 .proof-del svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.5;}
+/* ── AFFIRMATION CARDS ── */
+.cards-intro{font-family:var(--fd);font-style:italic;font-size:15px;color:var(--ts);line-height:1.6;padding-bottom:8px;}
+.cards-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 0 10px;color:var(--tm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;}
+.cards-stage{position:relative;min-height:310px;margin:4px -10px 10px;overflow:hidden;}
+.cards-stage::before{content:"";position:absolute;inset:6px -8px 0;border-radius:999px;background:radial-gradient(ellipse at 50% 42%,rgba(255,255,255,.62),rgba(223,237,235,.25) 38%,rgba(255,255,255,0) 70%);filter:blur(10px);pointer-events:none;}
+.cards-stage::after{content:"";position:absolute;left:42px;right:42px;top:34px;height:150px;border-radius:50%;background:radial-gradient(ellipse at 50% 50%,rgba(116,160,174,.12),rgba(255,255,255,0) 68%);filter:blur(18px);pointer-events:none;animation:oracleTwinkle 3.8s ease-in-out infinite alternate;}
+.card-spread{position:relative;height:260px;padding:32px 0 18px;perspective:1100px;}
+.oracle-card{position:absolute;left:calc(50% - 47px + var(--x));top:var(--y);width:94px;aspect-ratio:.68/1;border-radius:18px;border:1px solid rgba(255,255,255,.62);background:rgba(255,255,255,.28);box-shadow:0 18px 38px rgba(55,105,140,.13),inset 0 1px 0 rgba(255,255,255,.82);backdrop-filter:blur(18px) saturate(1.08);-webkit-backdrop-filter:blur(18px) saturate(1.08);transform:rotate(var(--tilt));transform-style:preserve-3d;z-index:var(--z);transition:transform .82s cubic-bezier(.2,.78,.18,1),left .82s cubic-bezier(.2,.78,.18,1),top .82s cubic-bezier(.2,.78,.18,1),box-shadow .32s var(--ease),opacity .42s var(--ease),filter .42s var(--ease);}
+.oracle-card:hover,.oracle-card:focus-visible{box-shadow:0 20px 48px rgba(45,105,150,.26),0 0 0 6px rgba(255,255,255,.18),inset 0 1px 0 rgba(255,255,255,.95);outline:none;}
+.oracle-card.picked{left:calc(50% - 63px);top:4px;width:126px;transform:rotate(0deg) translateY(-6px) scale(1.03);z-index:20;box-shadow:0 30px 70px rgba(45,105,150,.24),0 0 54px rgba(255,255,255,.38),inset 0 1px 0 rgba(255,255,255,.95);}
+.oracle-card.dimmed{opacity:.2;filter:blur(1px);transform:rotate(var(--tilt)) translateY(22px) scale(.84);}
+.oracle-card-inner{position:absolute;inset:6px;border-radius:14px;overflow:hidden;background:#e9f0ef;transform-style:preserve-3d;transition:transform 1.05s cubic-bezier(.2,.78,.18,1);transition-delay:.18s;}
+.oracle-card.picked .oracle-card-inner{transform:rotateY(180deg);}
+.oracle-card-back,.oracle-card-front{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
+.oracle-card-back{background:radial-gradient(ellipse at 50% 28%,rgba(255,255,255,.72) 0 18%,rgba(255,255,255,0) 42%),linear-gradient(145deg,rgba(238,246,243,.82),rgba(201,222,220,.62) 54%,rgba(248,244,225,.72));}
+.oracle-card-back::before{content:"";position:absolute;inset:17%;border:1px solid rgba(35,96,130,.34);border-radius:999px;}
+.oracle-card-back::after{content:"";position:absolute;left:50%;top:17%;width:1px;height:65%;background:rgba(35,96,130,.16);box-shadow:18px 18px 0 rgba(35,96,130,.08),-18px 18px 0 rgba(35,96,130,.08);transform:translateX(-50%) rotate(18deg);}
+.oracle-card-front{transform:rotateY(180deg);background:#e8f1f0;}
+.oracle-painting{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.oracle-blue{position:absolute;left:8px;right:8px;bottom:9px;font-size:7px;line-height:1.25;letter-spacing:.15em;text-transform:uppercase;color:#1f78bd;font-weight:500;text-align:center;text-shadow:.4px .4px 0 rgba(255,255,255,.34);}
+.oracle-result{min-height:156px;padding:18px;text-align:center;position:relative;overflow:hidden;transition:opacity .55s var(--ease),transform .55s var(--ease),filter .55s var(--ease);}
+.oracle-result.waiting{opacity:.55;filter:blur(.35px);transform:translateY(4px);}
+.oracle-result.revealed{animation:quoteReveal .9s var(--ease) both;}
+.oracle-result::before{content:"";position:absolute;inset:-40% -20%;background:radial-gradient(ellipse at 50% 45%,rgba(255,255,255,.55),rgba(255,255,255,0) 55%);opacity:0;pointer-events:none;}
+.oracle-result.revealed::before{animation:softVeil .95s var(--ease) both;}
+.oracle-kicker{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--tm);padding-bottom:9px;}
+.oracle-title{font-family:var(--fd);font-style:italic;font-size:26px;line-height:1.12;color:var(--tp);padding-bottom:10px;}
+.oracle-message{font-size:13px;font-weight:300;line-height:1.7;color:var(--ts);}
+.oracle-actions{display:flex;justify-content:center;padding-top:14px;}
+.oracle-draw-btn{padding:10px 20px;border-radius:var(--rpill);background:var(--acc);color:#fff;font-size:9px;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 10px 24px rgba(45,105,150,.16);}
+@keyframes oracleTwinkle{from{opacity:.36;transform:translateY(0)}to{opacity:.72;transform:translateY(4px)}}
+@keyframes quoteReveal{from{opacity:0;filter:blur(7px);transform:translateY(10px)}to{opacity:1;filter:blur(0);transform:translateY(0)}}
+@keyframes softVeil{0%{opacity:0;transform:translateY(18px)}35%{opacity:.9}100%{opacity:0;transform:translateY(-18px)}}
 /* Settings */
 .settings-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--rule);cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .settings-label{font-size:13px;font-weight:300;color:var(--tp);}
@@ -232,34 +285,27 @@ input,textarea,select{font-family:var(--fu);}
         <p class="whisper fi d1" id="whisper"></p>
         <p class="slabel fi d2">Energy today</p>
         <div class="energy-row fi d2" id="energy-row">
-          <button class="ebtn" data-e="low">Low</button>
-          <button class="ebtn" data-e="soft">Soft</button>
-          <button class="ebtn" data-e="focused">Focused</button>
-          <button class="ebtn" data-e="powerful">Powerful</button>
+          <button class="ebtn" data-e="tender">Tender</button>
+          <button class="ebtn" data-e="foggy">Foggy</button>
+          <button class="ebtn" data-e="steady">Steady</button>
+          <button class="ebtn" data-e="charged">Charged</button>
         </div>
-        <p class="slabel fi d3">One intention</p>
-        <input class="intention-input fi d3" id="intention" type="text" placeholder="What matters most today?" maxlength="120">
-        <p class="slabel fi d4">Three anchors</p>
-        <div class="card fi d4" style="padding:4px 0;" id="anchors-card">
-          <div class="anchor-row">
-            <div class="anchor-check" id="anch-body"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <span class="anchor-label">Body</span>
-            <span class="anchor-tag">physical</span>
-          </div>
-          <div class="anchor-row">
-            <div class="anchor-check" id="anch-biz"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <span class="anchor-label">Business</span>
-            <span class="anchor-tag">work</span>
-          </div>
-          <div class="anchor-row">
-            <div class="anchor-check" id="anch-soul"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-            <span class="anchor-label">Soul</span>
-            <span class="anchor-tag">spirit</span>
-          </div>
+        <p class="slabel fi d3">Daily briefing</p>
+        <div class="card fi d3 brief-card" id="daily-briefing"></div>
+        <p class="slabel fi d4">Astro key insight</p>
+        <div class="card fi d4 brief-card" id="astro-key-insight"></div>
+        <p class="slabel fi d5">One true move</p>
+        <div class="move-row fi d5" id="move-row">
+          <button class="move-btn" data-move="ship">Ship</button>
+          <button class="move-btn" data-move="sell">Sell</button>
+          <button class="move-btn" data-move="create">Create</button>
+          <button class="move-btn" data-move="admin">Admin</button>
+          <button class="move-btn" data-move="recover">Recover</button>
+          <button class="move-btn" data-move="connect">Connect</button>
         </div>
-        <div id="pinned-transit-wrap" style="display:none">
-          <p class="slabel fi d5">Transit note</p>
-          <div class="pinned-transit fi d5" id="pinned-transit-text"></div>
+        <div class="card fi d6 landing-row" id="evening-landing">
+          <div class="landing-check" id="landing-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <span class="landing-text">I did one honest thing today.</span>
         </div>
       </div>
 
@@ -355,6 +401,17 @@ input,textarea,select{font-family:var(--fu);}
         </div>
         <!-- Astro -->
         <div id="compass-astro" style="display:none;" class="fi d2">
+          <div class="card astro-profile">
+            <p class="brief-mini-label">Private astro profile</p>
+            <div class="astro-profile-grid">
+              <label>Birth date<input id="birth-date" type="date"></label>
+              <label>Birth time<input id="birth-time" type="time"></label>
+              <label>Birth city<input id="birth-city" type="text" placeholder="Hong Kong"></label>
+              <label>Current timezone<input id="current-tz" type="text" placeholder="Asia/Hong_Kong"></label>
+            </div>
+            <p class="astro-profile-note">Stored only in this browser. Used for Today’s real-time astro key insight.</p>
+            <button class="astro-go" id="astro-profile-save" style="margin-top:10px;">Save profile</button>
+          </div>
           <div class="astro-chips" id="astro-chips">
             <span class="achip" data-eg="Transit Moon in 10th house">Moon 10th</span>
             <span class="achip" data-eg="Transit Venus trine natal MC">Venus trine MC</span>
@@ -403,6 +460,27 @@ input,textarea,select{font-family:var(--fu);}
         <div id="proof-list" class="fi d2" style="padding-top:12px;"></div>
       </div>
 
+      <!-- CARDS -->
+      <div id="pg-cards" class="page">
+        <p class="slabel fi d0">Affirmation cards</p>
+        <p class="cards-intro fi d1">Shuffle the deck, then choose the card that seems to breathe first.</p>
+        <div class="cards-meta fi d2">
+          <span>30-card deck</span>
+          <span id="deck-whisper">quietly shuffled</span>
+        </div>
+        <div class="cards-stage fi d2">
+          <div class="card-spread" id="card-spread" aria-label="Pick an affirmation card"></div>
+        </div>
+        <div class="card fi d3 oracle-result" id="oracle-result">
+          <p class="oracle-kicker">Today's draw</p>
+          <h2 class="oracle-title">Pick a card</h2>
+          <p class="oracle-message">A small line will meet you where you are.</p>
+        </div>
+        <div class="oracle-actions fi d4">
+          <button class="oracle-draw-btn" id="oracle-reset">Draw again</button>
+        </div>
+      </div>
+
     </main>
     <!-- NAV -->
     <nav><div class="navwrap"><div class="navpill">
@@ -430,6 +508,10 @@ input,textarea,select{font-family:var(--fu);}
         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         <span>Proof</span>
       </button>
+      <button class="ni" data-pg="cards" aria-label="Cards">
+        <svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="16" rx="2"/><path d="M9 7h6M9 15h6M12 10.5l1.5 1.5L12 13.5 10.5 12z"/></svg>
+        <span>Cards</span>
+      </button>
     </div></div></nav>
   </div>
 </div>
@@ -444,7 +526,7 @@ const TODAY = new Date().toISOString().slice(0, 10);
 // ── DATA GETTERS/SETTERS ──
 function getToday() {
   const d = S.get('pos_today_v1', {});
-  if (d.date !== TODAY) return { date: TODAY, energy: null, intention: '', anchors: { body: false, biz: false, soul: false } };
+  if (d.date !== TODAY) return { date: TODAY, energy: null, move: null, eveningDone: false, intention: '', anchors: { body: false, biz: false, soul: false } };
   return d;
 }
 function saveToday(td) { S.set('pos_today_v1', { ...td, date: TODAY }); }
@@ -466,6 +548,9 @@ function saveAstroHistory(h) { S.set('pos_astro_v1', h); }
 
 function getPinned() { return S.get('pos_pinned_v1', null); }
 function savePin(p) { S.set('pos_pinned_v1', p); }
+
+function getAstroProfile() { return S.get('pos_astro_profile_v1', null); }
+function saveAstroProfile(p) { S.set('pos_astro_profile_v1', p); }
 
 // ── QUOTES / WHISPERS ──
 const WHISPERS = [
@@ -499,6 +584,38 @@ const GROUNDING = [
   "Step outside and feel the air for 60 seconds.",
   "Hum one note for as long as one breath lasts.",
   "Close your eyes and list the sounds in the room."
+];
+const AFFIRMATION_CARDS = [
+  { motif:"sun", blue:"KEEP THE LIGHT", title:"I am allowed to begin again.", message:"Nothing about today needs to be perfect to be real. Take the next warm step and let that be enough.", palette:["#f2df99","#df8e35","#b97830","#fbf4dd"] },
+  { motif:"tree", blue:"ROOT THEN RISE", title:"I grow at my own pace.", message:"The quiet work below the surface is still work. Let your roots do their private, patient magic.", palette:["#9bb49c","#6f8c76","#a16234","#f7f2e6"] },
+  { motif:"fruit", blue:"SWEETNESS COUNTS", title:"I can receive good things.", message:"Ease does not make you lazy. Pleasure, softness, and support are part of your becoming too.", palette:["#ee8c14","#f4b14c","#24784e","#fbf6ea"] },
+  { motif:"moon", blue:"SOFT IS STRONG", title:"My sensitivity is information.", message:"You do not have to turn the volume of your heart all the way down. Listen, then choose gently.", palette:["#f8edcc","#e79b63","#89a595","#fbf7ea"] },
+  { motif:"path", blue:"ONE SMALL WAY", title:"I only need the next small step.", message:"The whole path does not need to reveal itself. Put one foot into the light you can see.", palette:["#f4df9b","#ddad55","#8aa090","#fbf6e8"] },
+  { motif:"seed", blue:"BEGIN SMALL", title:"I trust the seed stage.", message:"A beginning can look almost invisible. That does not mean nothing is happening.", palette:["#d9c081","#7f9a76","#8c623e","#fbf4e4"] },
+  { motif:"cup", blue:"FILL FIRST", title:"I am allowed to replenish.", message:"You do not have to pour from the part of you that is already empty.", palette:["#d5e3df","#86a7a0","#c78255","#faf4e7"] },
+  { motif:"mountain", blue:"STEADY NOW", title:"I can move slowly and still arrive.", message:"Speed is not the proof. Returning is the proof.", palette:["#b7b8a8","#7f8b81","#d7b06a","#fbf3df"] },
+  { motif:"window", blue:"OPEN A LITTLE", title:"I let fresh air reach the stuck place.", message:"You do not need a total reinvention. A small opening changes the room.", palette:["#dfe9e4","#8dafb4","#d39761","#fbf6ec"] },
+  { motif:"star", blue:"NOTICE THE SIGNAL", title:"I can follow a quiet yes.", message:"Not every answer arrives loudly. Some arrive as a small loosening in the body.", palette:["#f6d88f","#2f78ad","#b98248","#fbf4df"] },
+  { motif:"river", blue:"LET IT MOVE", title:"I do not have to hold every feeling.", message:"Emotion is meant to pass through. Let it have a doorway.", palette:["#aac7bd","#6f9aa1","#d9b06c","#fbf4e9"] },
+  { motif:"hands", blue:"I CAN HOLD THIS", title:"I can be tender with myself.", message:"Tenderness is not a detour from strength. It is one of its forms.", palette:["#edc7a6","#b9744c","#8ba083","#fbf5e9"] },
+  { motif:"candle", blue:"ONE TRUE FLAME", title:"I protect my attention.", message:"A single clear flame can warm more than a room full of sparks.", palette:["#f1c66a","#d77838","#6f8576","#fbf2e4"] },
+  { motif:"shell", blue:"LISTEN INWARD", title:"My inner rhythm is valid.", message:"The outside world can be loud and still not be the authority.", palette:["#ead2bd","#d08c6a","#8aa49a","#fbf6ec"] },
+  { motif:"garden", blue:"TEND THE LIVING", title:"I tend what is actually alive.", message:"Put your energy where there is a pulse, not where guilt is pointing.", palette:["#9fb78e","#6f8f66","#c99253","#fbf4e7"] },
+  { motif:"door", blue:"STEP THROUGH", title:"I am ready for one honest move.", message:"Readiness does not always feel brave. Sometimes it feels like opening anyway.", palette:["#d6b06a","#9f6844","#8aa79d","#fbf3e6"] },
+  { motif:"cloud", blue:"LESS PRESSURE", title:"I release the demand to know everything.", message:"You can make the next choice without solving the whole sky.", palette:["#dfe6df","#a3b7af","#d79b62","#fbf7ee"] },
+  { motif:"pearl", blue:"HIDDEN VALUE", title:"My work has quiet worth.", message:"Not everything precious announces itself. Some value is felt before it is named.", palette:["#efe6cb","#d7c18c","#8ea29a","#fbf6e9"] },
+  { motif:"bridge", blue:"MEET YOURSELF", title:"I can cross one honest bridge.", message:"You do not have to leap. Let today be a crossing.", palette:["#cfa06b","#8a6b4d","#98aaa0","#fbf4e7"] },
+  { motif:"mirror", blue:"SEE SOFTLY", title:"I can look at myself without punishment.", message:"Awareness works better without cruelty. Tell the truth kindly.", palette:["#dce9e7","#8fb3b2","#cf8f5f","#fbf6ea"] },
+  { motif:"orange", blue:"TAKE THE JUICE", title:"I can use what life gives me.", message:"Even the sour parts can become fuel, flavor, or proof that you stayed.", palette:["#f29118","#f4c35b","#217a5c","#fbf7ee"] },
+  { motif:"lemon", blue:"ALL OF IT", title:"I can digest what is difficult.", message:"You have met hard things before. This one can be made smaller too.", palette:["#f1d21b","#e6b824","#267c50","#fbf7ee"] },
+  { motif:"field", blue:"ROOM TO BREATHE", title:"I make space before I make decisions.", message:"A crowded mind is not the best place to choose from. Widen first.", palette:["#d8c46d","#9fb37d","#c2864d","#fbf5e6"] },
+  { motif:"vase", blue:"BEAUTY HELPS", title:"I let beauty regulate me.", message:"Beauty is not extra. For you, it is a nervous-system language.", palette:["#ead8c4","#8fa98f","#c57f55","#fbf5e9"] },
+  { motif:"ladder", blue:"ONE RUNG", title:"I rise by one rung at a time.", message:"Tiny upward motion still changes the view.", palette:["#d4a466","#9a693f","#a9b69d","#fbf2e4"] },
+  { motif:"nest", blue:"SAFE ENOUGH", title:"I create safety in small ways.", message:"You do not need perfect conditions. You need one soft place to land.", palette:["#caa16f","#8d6f4f","#9fac8a","#fbf4e7"] },
+  { motif:"rain", blue:"LET IT WASH", title:"I allow the day to rinse me clean.", message:"Not every mood needs analysis. Some only need movement through.", palette:["#b8ccc8","#7ca0a6","#d49a65","#fbf6ed"] },
+  { motif:"sunset", blue:"ENOUGH TODAY", title:"What I did today can be enough.", message:"Completion is not the only measure. Care counts. Returning counts.", palette:["#e9a05b","#d87948","#7f9a89","#fbf1e4"] },
+  { motif:"thread", blue:"FOLLOW THE LINE", title:"I trust the thread I keep returning to.", message:"The pattern matters. What keeps calling you is not random.", palette:["#e2c588","#2478b6","#b9794e","#fbf5e9"] },
+  { motif:"stone", blue:"STAY WITH ME", title:"I am here with myself.", message:"Even if the day wobbles, you can be a steady witness to your own life.", palette:["#b9b8a8","#838b80","#d0a36c","#fbf4e8"] }
 ];
 const doy = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 86400000);
 
@@ -618,12 +735,120 @@ function navigate(pg) {
   if (pg === 'today') renderToday();
   if (pg === 'rituals') renderRituals('morning');
   if (pg === 'focus') renderDump();
-  if (pg === 'compass') renderGoals();
+  if (pg === 'compass') { renderGoals(); renderAstroProfile(); }
   if (pg === 'care') renderCare();
   if (pg === 'proof') renderProof();
+  if (pg === 'cards') renderCards();
 }
 
 // ── TODAY ──
+const ENERGY_BRIEF = {
+  tender: { line: "Today asks for gentleness with edges.", protect: "Do not make your worth negotiable because your heart feels soft.", body: "Eat before work and keep the first task contained." },
+  foggy: { line: "Today is a low-friction day. Choose clarity over intensity.", protect: "Do not open too many loops before one thing is done.", body: "Move your body for eight minutes before deciding the day is lost." },
+  steady: { line: "Today can hold a clean, useful rhythm.", protect: "Do not overfill the day just because you feel okay.", body: "Keep meals and water boringly reliable." },
+  charged: { line: "Today has fire. Aim it carefully.", protect: "Do not confuse urgency with importance.", body: "Discharge the extra current before sending sensitive messages." }
+};
+const MOVE_GUIDE = {
+  ship: "Finish one visible thing and let it be seen.",
+  sell: "Send one warm, elegant invitation or follow-up.",
+  create: "Make one small piece without turning it into a full identity test.",
+  admin: "Clear one practical knot, then stop before the pile expands.",
+  recover: "Protect capacity. A quiet repair is productive today.",
+  connect: "Reach out to one real person, not the whole internet."
+};
+const SIGNS = ["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
+const SIGN_ELEMENTS = {
+  Aries:"fire", Leo:"fire", Sagittarius:"fire",
+  Taurus:"earth", Virgo:"earth", Capricorn:"earth",
+  Gemini:"air", Libra:"air", Aquarius:"air",
+  Cancer:"water", Scorpio:"water", Pisces:"water"
+};
+function normDeg(n) { return ((n % 360) + 360) % 360; }
+function signFromLon(lon) { return SIGNS[Math.floor(normDeg(lon) / 30)]; }
+function sunLongitude(date = new Date()) {
+  const d = (date - new Date(Date.UTC(2000,0,1,12))) / 86400000;
+  const L = normDeg(280.46 + 0.9856474 * d);
+  const g = normDeg(357.528 + 0.9856003 * d) * Math.PI / 180;
+  return normDeg(L + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g));
+}
+function moonLongitude(date = new Date()) {
+  const d = (date - new Date(Date.UTC(2000,0,1,12))) / 86400000;
+  const L = normDeg(218.316 + 13.176396 * d);
+  const M = normDeg(134.963 + 13.064993 * d) * Math.PI / 180;
+  return normDeg(L + 6.289 * Math.sin(M));
+}
+function moonPhaseName(sunLon, moonLon) {
+  const diff = normDeg(moonLon - sunLon);
+  if (diff < 22.5 || diff >= 337.5) return "New Moon";
+  if (diff < 67.5) return "Waxing Crescent";
+  if (diff < 112.5) return "First Quarter";
+  if (diff < 157.5) return "Waxing Gibbous";
+  if (diff < 202.5) return "Full Moon";
+  if (diff < 247.5) return "Waning Gibbous";
+  if (diff < 292.5) return "Last Quarter";
+  return "Waning Crescent";
+}
+function natalSunSign(profile) {
+  if (!profile?.birthDate) return null;
+  const [y,m,d] = profile.birthDate.split('-').map(Number);
+  if (!m || !d) return null;
+  const cutoffs = [
+    ["Capricorn",1,20],["Aquarius",2,19],["Pisces",3,21],["Aries",4,20],
+    ["Taurus",5,21],["Gemini",6,21],["Cancer",7,23],["Leo",8,23],
+    ["Virgo",9,23],["Libra",10,23],["Scorpio",11,22],["Sagittarius",12,22],["Capricorn",13,1]
+  ];
+  for (const [sign, month, day] of cutoffs) if (m < month || (m === month && d < day)) return sign;
+  return "Capricorn";
+}
+function buildAstroInsight() {
+  const profile = getAstroProfile();
+  const sunLon = sunLongitude();
+  const moonLon = moonLongitude();
+  const sunSign = signFromLon(sunLon);
+  const moonSign = signFromLon(moonLon);
+  const phase = moonPhaseName(sunLon, moonLon);
+  const natalSun = natalSunSign(profile);
+  const moonElement = SIGN_ELEMENTS[moonSign];
+  const elementMeaning = {
+    fire: ["action wants a clean outlet", "launching, movement, brave tiny asks", "impulsive replies or proving energy"],
+    earth: ["the body and practical world need respect", "pricing, systems, studio order, slow craft", "getting stuck in perfection or heaviness"],
+    air: ["the mind wants language and perspective", "writing, pitching, planning, thoughtful conversations", "overthinking or outsourcing your own knowing"],
+    water: ["your emotional weather is part of the data", "private care, intuitive creative work, gentle client touchpoints", "taking silence too personally"]
+  }[moonElement];
+  const natalLine = natalSun ? `With your natal Sun in ${natalSun}, today works best when you choose beauty, balance, and one honest relational move.` : "Save your birth profile in Compass to make this more personal.";
+  return {
+    title: `${phase} · Moon in ${moonSign}`,
+    line: `The live sky says ${elementMeaning[0]}.`,
+    good: elementMeaning[1],
+    watch: elementMeaning[2],
+    tiny: natalSun === "Libra" ? "Make one thing more elegant, then share or send it." : "Choose one aligned action and keep it small.",
+    natal: natalLine,
+    setupNeeded: !profile?.birthDate
+  };
+}
+function renderBriefing(td) {
+  const energy = ENERGY_BRIEF[td.energy] || { line: "Choose the shape of today before the day chooses for you.", protect: "Do not let the first distraction become the plan.", body: "Begin with water, food, or movement before output." };
+  const move = td.move ? MOVE_GUIDE[td.move] : "Pick the kind of move today needs. The next step will become simpler.";
+  document.getElementById('daily-briefing').innerHTML = `
+    <p class="brief-line">${esc(energy.line)}</p>
+    <div class="brief-grid">
+      <div class="brief-mini"><p class="brief-mini-label">Your next step</p><p class="brief-mini-text">${esc(move)}</p></div>
+      <div class="brief-mini"><p class="brief-mini-label">Protect from</p><p class="brief-mini-text">${esc(energy.protect)}</p></div>
+      <div class="brief-mini"><p class="brief-mini-label">Body support</p><p class="brief-mini-text">${esc(energy.body)}</p></div>
+    </div>`;
+}
+function renderAstroKey() {
+  const a = buildAstroInsight();
+  document.getElementById('astro-key-insight').innerHTML = `
+    <p class="brief-mini-label">${esc(a.title)}</p>
+    <p class="brief-line">${esc(a.line)}</p>
+    <div class="brief-grid">
+      <div class="brief-mini"><p class="brief-mini-label">Good for</p><p class="brief-mini-text">${esc(a.good)}</p></div>
+      <div class="brief-mini"><p class="brief-mini-label">Watch</p><p class="brief-mini-text">${esc(a.watch)}</p></div>
+      <div class="brief-mini"><p class="brief-mini-label">Tiny aligned move</p><p class="brief-mini-text">${esc(a.tiny)}</p></div>
+      <div class="brief-mini"><p class="brief-mini-label">Personal note</p><p class="brief-mini-text">${esc(a.natal)}</p></div>
+    </div>`;
+}
 function renderToday() {
   const h = new Date().getHours();
   const gr = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
@@ -632,16 +857,11 @@ function renderToday() {
   document.getElementById('whisper').textContent = WHISPERS[doy % WHISPERS.length];
   const td = getToday();
   document.querySelectorAll('.ebtn').forEach(b => b.classList.toggle('sel', b.dataset.e === td.energy));
-  document.getElementById('intention').value = td.intention || '';
-  const a = td.anchors || {};
-  ['body','biz','soul'].forEach(k => {
-    const el = document.getElementById('anch-' + k);
-    if (el) el.classList.toggle('done', !!a[k]);
-  });
-  const pin = getPinned();
-  const pw = document.getElementById('pinned-transit-wrap');
-  if (pin) { pw.style.display = ''; document.getElementById('pinned-transit-text').innerHTML = '<p><strong>' + esc(pin.title) + '</strong> — ' + esc(pin.lead) + '</p>'; }
-  else pw.style.display = 'none';
+  document.querySelectorAll('.move-btn').forEach(b => b.classList.toggle('sel', b.dataset.move === td.move));
+  const landing = document.getElementById('landing-check');
+  if (landing) landing.classList.toggle('done', !!td.eveningDone);
+  renderBriefing(td);
+  renderAstroKey();
 }
 
 // ── RITUALS ──
@@ -713,6 +933,31 @@ function autoResize(el) { el.style.height = 'auto'; el.style.height = el.scrollH
 
 // ── ASTRO ──
 let lastInterpret = null;
+function renderAstroProfile() {
+  const p = getAstroProfile() || {};
+  const fields = {
+    'birth-date': p.birthDate || '',
+    'birth-time': p.birthTime || '',
+    'birth-city': p.birthCity || '',
+    'current-tz': p.currentTz || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Hong_Kong'
+  };
+  Object.entries(fields).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  });
+}
+function saveAstroProfileFromForm() {
+  const profile = {
+    birthDate: document.getElementById('birth-date')?.value || '',
+    birthTime: document.getElementById('birth-time')?.value || '',
+    birthCity: document.getElementById('birth-city')?.value || '',
+    currentTz: document.getElementById('current-tz')?.value || Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Hong_Kong'
+  };
+  saveAstroProfile(profile);
+  renderAstroKey();
+  const btn = document.getElementById('astro-profile-save');
+  if (btn) { btn.textContent = 'Saved'; setTimeout(() => btn.textContent = 'Save profile', 1400); }
+}
 function renderAstroResult(raw) {
   const r = interpretTransit(raw);
   if (!r) { document.getElementById('astro-result').innerHTML = '<p class="empty-msg">Could not parse that transit. Try: "Transit Venus trine natal MC"</p>'; return; }
@@ -764,6 +1009,129 @@ function renderProof() {
   document.querySelectorAll('.proof-del').forEach(btn => btn.addEventListener('click', () => { saveProof(getProof().filter(p => p.id !== btn.dataset.id)); renderProof(); }));
 }
 
+// ── AFFIRMATION CARDS ──
+let pickedCard = null;
+let visibleDeck = [];
+let drawSeed = doy;
+let revealTimer = null;
+let quoteRevealed = false;
+
+function seededShuffle(seed) {
+  const arr = AFFIRMATION_CARDS.map((_, i) => i);
+  let s = seed * 9301 + 49297;
+  for (let i = arr.length - 1; i > 0; i--) {
+    s = (s * 9301 + 49297) % 233280;
+    const j = Math.floor((s / 233280) * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function ensureVisibleDeck() {
+  if (visibleDeck.length === 0) visibleDeck = seededShuffle(drawSeed).slice(0, 7);
+}
+
+function oracleSvg(card, idx) {
+  const [a,b,c,paper] = card.palette;
+  const id = `p${idx}-${card.motif}`;
+  const text = esc(card.blue);
+  const motifNames = ["hourglass","seated","orb","vessel","moonbody","threshold","seedlight","softpath"];
+  const motif = motifNames[idx % motifNames.length];
+  const motifs = {
+    hourglass: `<path d="M39 31 H103 C103 46 88 58 78 74 C91 92 103 106 103 123 H39 C39 106 51 92 64 74 C53 58 39 46 39 31 Z" fill="rgba(232,241,240,.42)" stroke="rgba(255,255,255,.38)" stroke-width="5"/><path d="M52 65 C65 59 78 59 91 65 C87 73 80 77 71 78 C62 77 56 73 52 65 Z" fill="${b}" opacity=".78"/><path d="M70 78 C72 92 72 104 70 121" stroke="${b}" stroke-width="4" stroke-linecap="round" opacity=".65"/><path d="M55 126 C68 116 83 116 96 126" fill="${a}" opacity=".74"/>`,
+    seated: `<circle cx="72" cy="43" r="17" fill="rgba(255,255,230,.8)"/><path d="M65 61 C45 76 46 112 67 128 C84 138 110 132 116 113 C95 115 84 104 82 84 C80 72 75 64 65 61 Z" fill="${a}" opacity=".46"/><path d="M74 66 C91 83 92 108 79 128" stroke="${c}" stroke-width="12" stroke-linecap="round" opacity=".2"/><ellipse cx="72" cy="134" rx="48" ry="13" fill="${b}" opacity=".18"/>`,
+    orb: `<circle cx="72" cy="76" r="54" fill="${a}" opacity=".48"/><circle cx="72" cy="76" r="36" fill="rgba(255,255,255,.34)"/><circle cx="72" cy="76" r="74" fill="none" stroke="${b}" stroke-width="18" opacity=".13"/><path d="M33 132 C59 121 92 122 113 134" stroke="${c}" stroke-width="10" stroke-linecap="round" opacity=".22"/>`,
+    vessel: `<path d="M48 41 C56 34 88 34 96 41 C101 72 96 112 78 128 H66 C48 112 43 72 48 41 Z" fill="rgba(232,241,240,.5)" stroke="rgba(255,255,255,.42)" stroke-width="5"/><path d="M54 79 C65 72 80 72 91 79 C86 91 78 97 72 98 C65 97 58 91 54 79 Z" fill="${b}" opacity=".55"/><ellipse cx="72" cy="128" rx="33" ry="8" fill="${c}" opacity=".16"/>`,
+    moonbody: `<circle cx="82" cy="66" r="51" fill="${a}" opacity=".38"/><circle cx="62" cy="62" r="49" fill="${paper}" opacity=".86"/><path d="M39 122 C59 103 91 104 110 124" fill="none" stroke="${b}" stroke-width="13" stroke-linecap="round" opacity=".3"/><circle cx="72" cy="127" r="12" fill="${c}" opacity=".2"/>`,
+    threshold: `<rect x="42" y="40" width="59" height="91" rx="29" fill="${a}" opacity=".34"/><rect x="52" y="53" width="39" height="72" rx="20" fill="rgba(255,255,255,.42)"/><path d="M72 64 V121" stroke="${b}" stroke-width="5" stroke-linecap="round" opacity=".35"/><ellipse cx="72" cy="135" rx="42" ry="10" fill="${c}" opacity=".16"/>`,
+    seedlight: `<ellipse cx="72" cy="80" rx="34" ry="54" fill="${a}" opacity=".42" transform="rotate(-10 72 80)"/><path d="M72 130 C69 98 76 69 92 39" stroke="${b}" stroke-width="7" stroke-linecap="round" opacity=".32"/><path d="M90 47 C104 34 120 43 119 58 C104 63 95 57 90 47 Z" fill="${c}" opacity=".32"/>`,
+    softpath: `<circle cx="72" cy="58" r="43" fill="${a}" opacity=".32"/><path d="M24 130 C48 99 70 99 88 80 C102 99 112 115 126 132 L126 146 H24 Z" fill="${b}" opacity=".22"/><path d="M67 145 C70 119 75 98 88 80" stroke="rgba(255,255,255,.5)" stroke-width="8" stroke-linecap="round"/>`
+  };
+  return `<svg class="oracle-painting" viewBox="0 0 142 198" aria-hidden="true">
+    <defs>
+      <filter id="${id}-mist" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.8"/><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .92 0"/></filter>
+      <filter id="${id}-grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="${idx + 31}"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .18"/></feComponentTransfer></filter>
+      <radialGradient id="${id}-bg" cx="50%" cy="38%" r="75%"><stop offset="0" stop-color="rgba(255,255,255,.72)"/><stop offset=".45" stop-color="${paper}"/><stop offset="1" stop-color="rgba(128,168,176,.45)"/></radialGradient>
+      <radialGradient id="${id}-glow" cx="50%" cy="58%" r="48%"><stop offset="0" stop-color="${a}" stop-opacity=".68"/><stop offset="1" stop-color="${a}" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="142" height="198" fill="url(#${id}-bg)"/>
+    <rect width="142" height="198" filter="url(#${id}-grain)" opacity=".55"/>
+    <circle cx="72" cy="96" r="74" fill="url(#${id}-glow)" opacity=".42"/>
+    <g filter="url(#${id}-mist)">${motifs[motif]}</g>
+    <text x="71" y="174" text-anchor="middle" font-size="7.2" letter-spacing="2.2" fill="#2a78ad" font-family="Inter, sans-serif" font-weight="500" opacity=".76">${text}</text>
+  </svg>`;
+}
+
+function renderCards() {
+  const spread = document.getElementById('card-spread');
+  const result = document.getElementById('oracle-result');
+  const whisper = document.getElementById('deck-whisper');
+  if (!spread || !result) return;
+  ensureVisibleDeck();
+  const layout = [
+    { x: -126, y: 78, tilt: -18, z: 1 },
+    { x: -86, y: 38, tilt: -11, z: 2 },
+    { x: -45, y: 18, tilt: -5, z: 3 },
+    { x: 0, y: 11, tilt: 1, z: 4 },
+    { x: 44, y: 18, tilt: 7, z: 3 },
+    { x: 86, y: 42, tilt: 13, z: 2 },
+    { x: 126, y: 80, tilt: 19, z: 1 }
+  ];
+  spread.innerHTML = visibleDeck.map((deckIndex, i) => {
+    const card = AFFIRMATION_CARDS[deckIndex];
+    const picked = pickedCard === i;
+    const dimmed = pickedCard !== null && pickedCard !== i;
+    const l = layout[i];
+    return `<button class="oracle-card ${picked ? 'picked' : ''} ${dimmed ? 'dimmed' : ''}" style="--x:${l.x}px;--y:${l.y}px;--tilt:${l.tilt}deg;--z:${l.z}" data-i="${i}" type="button" aria-label="Pick card ${i + 1}">
+      <span class="oracle-card-inner">
+        <span class="oracle-card-back"></span>
+        <span class="oracle-card-front">
+          ${oracleSvg(card, deckIndex)}
+        </span>
+      </span>
+    </button>`;
+  }).join('');
+
+  if (pickedCard === null) {
+    result.classList.remove('waiting','revealed');
+    result.innerHTML = '<p class="oracle-kicker">Today&rsquo;s draw</p><h2 class="oracle-title">Pick a card</h2><p class="oracle-message">A small line will meet you where you are.</p>';
+    if (whisper) whisper.textContent = 'quietly shuffled';
+  } else {
+    const card = AFFIRMATION_CARDS[visibleDeck[pickedCard]];
+    if (!quoteRevealed) {
+      result.classList.remove('revealed');
+      result.classList.add('waiting');
+      result.innerHTML = '<p class="oracle-kicker">Today&rsquo;s draw</p><h2 class="oracle-title">Let it turn over.</h2><p class="oracle-message">The message is arriving softly.</p>';
+    } else {
+      result.classList.remove('waiting');
+      result.classList.add('revealed');
+      result.innerHTML = `<p class="oracle-kicker">Today&rsquo;s draw</p><h2 class="oracle-title">${esc(card.title)}</h2><p class="oracle-message">${esc(card.message)}</p>`;
+    }
+    if (whisper) whisper.textContent = `card ${visibleDeck[pickedCard] + 1} of ${AFFIRMATION_CARDS.length}`;
+  }
+
+  spread.querySelectorAll('.oracle-card').forEach(btn => btn.addEventListener('click', () => {
+    if (pickedCard !== null) return;
+    pickedCard = parseInt(btn.dataset.i);
+    quoteRevealed = false;
+    clearTimeout(revealTimer);
+    renderCards();
+    revealTimer = setTimeout(() => {
+      quoteRevealed = true;
+      renderCards();
+    }, 1150);
+  }));
+}
+
+function resetCards() {
+  pickedCard = null;
+  quoteRevealed = false;
+  clearTimeout(revealTimer);
+  drawSeed += 17;
+  visibleDeck = seededShuffle(drawSeed).slice(0, 7);
+  renderCards();
+}
+
 // ── UTILS ──
 function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function uid() { return crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36); }
@@ -778,15 +1146,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.ebtn').forEach(b => b.addEventListener('click', () => {
     const td = getToday(); td.energy = b.dataset.e; saveToday(td);
     document.querySelectorAll('.ebtn').forEach(x => x.classList.toggle('sel', x.dataset.e === b.dataset.e));
+    renderBriefing(td);
   }));
-  document.getElementById('intention').addEventListener('input', e => {
-    const td = getToday(); td.intention = e.target.value; saveToday(td);
-  });
-  ['body','biz','soul'].forEach(k => {
-    document.getElementById('anch-' + k)?.addEventListener('click', () => {
-      const td = getToday(); td.anchors = td.anchors || {}; td.anchors[k] = !td.anchors[k]; saveToday(td);
-      document.getElementById('anch-' + k).classList.toggle('done', td.anchors[k]);
-    });
+  document.querySelectorAll('.move-btn').forEach(b => b.addEventListener('click', () => {
+    const td = getToday(); td.move = td.move === b.dataset.move ? null : b.dataset.move; saveToday(td);
+    renderToday();
+  }));
+  document.getElementById('evening-landing')?.addEventListener('click', () => {
+    const td = getToday(); td.eveningDone = !td.eveningDone; saveToday(td);
+    renderToday();
   });
 
   // Ritual tabs
@@ -866,8 +1234,9 @@ Keep it warm, practical, and brief. No bullet-point overwhelm.`;
     document.querySelectorAll('.stab[data-ctab]').forEach(x => x.classList.toggle('act', x.dataset.ctab === b.dataset.ctab));
     document.getElementById('compass-direction').style.display = b.dataset.ctab === 'direction' ? '' : 'none';
     document.getElementById('compass-astro').style.display = b.dataset.ctab === 'astro' ? '' : 'none';
-    if (b.dataset.ctab === 'astro') renderAstroHistory();
+    if (b.dataset.ctab === 'astro') { renderAstroProfile(); renderAstroHistory(); }
   }));
+  document.getElementById('astro-profile-save')?.addEventListener('click', saveAstroProfileFromForm);
 
   // Astro
   document.getElementById('astro-go').addEventListener('click', () => {
@@ -897,6 +1266,8 @@ Keep it warm, practical, and brief. No bullet-point overwhelm.`;
 
   renderCare();
   renderProof();
+  renderCards();
+  document.getElementById('oracle-reset')?.addEventListener('click', resetCards);
 });
 </script>
 </body>
